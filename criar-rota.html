@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>traçar rota</title>
+	<meta charset="utf-8" lang="pt-BR" />
+	<script src="auto/jquery.min.js"></script>
+	<link rel="stylesheet" href="fontaw/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAF9SwzxHRiH5n3RGs2-CVha2GEhXVFFqw&amp;sensor=false"></script>
+	<script type="text/javascript" src="auto/mapa.js"></script>
+	<script type="text/javascript" src="auto/jquery-ui.custom.min.js"></script>
+	<link href="auto/estilo.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+	<header>
+		<div class="topo">
+			<div class="logo">
+				<img src="img/logo.png" alt="" />
+			</div>
+			<div class="top-direita">
+				<a href="##">Sair <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+			</div>
+		</div>
+	</header>
+	<aside>
+		<div class="user">
+			Usuario: <span>Gilberto Gomes</span>  <i class="fa fa-cog" aria-hidden="true"></i>
+			<div class="configuracoes-user">
+				<ul>
+					<li><a href="dasdasdasd.php" title="">Alterar Senha</a></li>
+					<li><a href="#" title="">Alterar informações da conta</a></li>
+				</ul>
+			</div>
+		</div>
+		<ul>
+			<li><a href="index.html"><i class="fa fa-map" aria-hidden="true"></i> <span>Home</span></a></li>
+			<li ><i class="fa fa-blind" aria-hidden="true"></i> <span>Cadastros</span>
+				<ul class="aside-cad">
+					<li class="active"><a href="promotor.html" alt="Promotor">Promotor</a></li>
+					<li><a href="mercado.html" alt="Mercado">Mercado</a></li>
+					<li><a href="usuario.html" alt="Usuário">Usuário</a></li>
+				</ul>
+			</li>
+			<li><i class=" fa fa-universal-access" aria-hidden="true"></i> <span>descr</span></li>
+			<li class="active"><i class="fa fa-briefcase" aria-hidden="true"></i> <span>Criar Rota</span></li>
+			<li><i class="fa fa-briefcase" aria-hidden="true"></i> <span>descr</span></li>
+			<li><i class="fa fa-briefcase" aria-hidden="true"></i> <span>descr</span></li>
+		</ul>
+		<span class="minima"><i class="fa fa-align-justify" aria-hidden="true"></i></span>
+	</aside>
+	<div class="title-page">
+		<div class="title">
+			<h1>Criar Rota</h1>
+		</div>
+	</div>
+	<div class="conteudo">
+		<div class="container-cadastros">
+			<form method="post" action="index.html" class="form-cad-user">
+				<div class="table">
+					<div class="td">
+						<label>Nome</label>
+						<input type="text" id="nome" name="nome" placeholder="Ex.: Expedito Ribeiro Cedro" />
+					</div>
+					<div class="td space"></div>
+					<div class="td">
+						<label>Celular</label>
+						<input type="text" id="cel" name="cel" placeholder="( ## ) _____-____" />
+					</div>
+					<div class="td space"></div>
+					<div class="td">
+						<label>Empresa</label>
+						<select id="empresa" name="empresa">
+							<option value="" selected disabled>Selecione</option>
+							<option value="Sadia">Sadia</option>
+							<option value="Perdigão">Perdigão</option>
+							<option value="Chapecó">Chapecó</option>
+							<option value="Marabraz">Marabraz</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="table">
+					<div class="td nascimento-date">
+						<label>Data de Nascimento</label><br />
+						<input type="date" id="dt-nasc" name="idade_date" placeholder="23 Anos" />
+					</div>
+					<div class="td space"></div>
+					<div class="td">
+						<label>Login</label>
+						<input type="text" id="login" name="login" placeholder="ExpeditoCedro" />
+					</div>
+					<div class="td space"></div>
+					<div class="td">
+						<label>Senha</label>
+						<input type="text" id="senha" name="senha" placeholder="promout_123@" />
+					</div>
+				</div>
+				<div class="table">
+					<div class="td">
+						<label>Tipo Logradouro</label>
+						<select name="tipo_logradouro" id="tipo_logradouro">
+							<option value="" disabled selected>Selecione</option>
+							<option value="Av">Avenida</option>
+							<option value="R">Rua</option>
+							<option value="Al">Alameda</option>
+						</select>
+					</div>
+					<div class="td space"></div>
+					<div class="td">
+						<label>Logradouro</label>
+						<input type="text" name="logradouro" id="logradouro" placeholder="Alvares de Andrade" />
+					</div>
+					<div class="td space"></div>
+					<div class="td">
+						<label>Numero</label>
+						<input type="text" name="numero" id="numero" placeholder="333" />
+					</div>
+					<div class="td space"></div>
+					<div class="td">
+						<label>Bairro</label>
+						<input type="text" name="bairro" id="bairro" placeholder="Japurapinga" />
+					</div>
+					<div class="td space"></div>
+					<div class="td">
+						<label>Cidade</label>
+						<select name="cidade" id="cidade">
+							<option value="" disabled selected>Selecione</option>
+							<option value="">São Paulo</option>
+							<option value="">Guarulhos</option>
+							<option value="">Ourinhos</option>
+						</select>
+					</div>
+					<div class="td space"></div>
+					<div class="td">
+						<label>Estado</label>
+						<select name="estado" id="estado">
+							<option value="" disabled selected>Selecione</option>
+							<option value="">SP</option>
+							<option value="">MG</option>
+						</select>
+					</div>
+					<div class="td space"></div>
+					<div class="td">
+						<label>CEP</label>
+						<input type="text" name="cep" id="cep" />
+
+					</div>
+				</div>
+				<div class="table">
+					<div class="td botao-mostrar-site">
+						<label></label><br /	>
+						<input type="button" id="btnEndereco" name="btnEndereco" value="Mostrar no mapa" />
+					</div>
+					<div class="td space"></div>
+					<div class="td">
+						<label>Endereço</label>
+						<input disabled type="text" id="txtEndereco" name="txtEndereco" placeholder="Rua Avares de Andrade, 265 - São Paulo" />
+					</div>
+
+				</div>
+				<div id="mapa"></div>
+				<input type="submit" value="Enviar" name="btnEnviar" />
+				<input type="hidden" id="txtLatitude" name="txtLatitude" />
+				<input type="hidden" id="txtLongitude" name="txtLongitude" />
+			</form>
+
+		</div>
+	</div>
+
+	<footer>
+		<!-- footer -->
+	</footer>
+	<script>
+		$('.botao-mostrar-site input').click(function(event) {
+			var tipo_logradouro = $('#tipo_logradouro').val()
+			var logradouro = $('#logradouro').val()
+			var numero = $('#numero').val()
+			var bairro = $('#bairro').val()
+			var cidade = $('#cidade').val()
+			var estado = $('#estado').val()
+			var cep = $('#cep').val()
+
+
+			var logradouro_completo = tipo_logradouro + '. ' + logradouro + ', ' + numero + ' - ' + bairro + ', ' + cidade + ' - ' + estado + ', ' +  cep;
+
+
+			$('#txtEndereco').val(logradouro_completo);
+		});
+
+
+		$('.minima').click(function(event) {
+			$('aside ul li span').toggleClass('dnon');
+			$('aside').toggleClass('min-aside');
+		});
+		$('aside ul li.aside-cad').click(function(event) {
+			$('aside ul li ul.aside-cad').toggleClass('abre-aside');
+			$('aside ul li ul li').toggleClass('opac-li');
+		});
+		$('.user i').click(function(event) {
+			$('.configuracoes-user').toggleClass('configuracoes-user-show');
+			//$('.configuracoes-user ul').toggleClass('config-user-show');
+		});
+	</script>
+</body>
+</html>

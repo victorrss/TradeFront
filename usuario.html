@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cadastros - Usuario</title>
+	<meta charset="utf-8" lang="pt-BR" />
+	<script src="auto/jquery.min.js"></script>
+	<link rel="stylesheet" href="fontaw/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAF9SwzxHRiH5n3RGs2-CVha2GEhXVFFqw&amp;sensor=false"></script>
+	<script type="text/javascript" src="auto/mapa.js"></script>
+	<script type="text/javascript" src="auto/jquery-ui.custom.min.js"></script>
+	<link href="auto/estilo.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+	<header>
+		<div class="topo">
+			<div class="logo">
+				<img src="img/logo.png" alt="" />
+			</div>
+			<div class="top-direita">
+				<a href="##">Sair <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+			</div>
+		</div>
+	</header>
+	<aside>
+		<div class="user">
+			Usuario: <span>Gilberto Gomes</span>  <i class="fa fa-cog" aria-hidden="true"></i>
+			<div class="configuracoes-user">
+				<ul>
+					<li><a href="dasdasdasd.php" title="">Alterar Senha</a></li>
+					<li><a href="#" title="">Alterar informações da conta</a></li>
+				</ul>
+			</div>
+		</div>
+		<ul>
+			<li><a href="index.html"><i class="fa fa-map" aria-hidden="true"></i> <span>Home</span></a></li>
+			<li class="active"><i class="fa fa-blind" aria-hidden="true"></i> <span>Cadastros</span>
+				<ul class="aside-cad abre-aside">
+					<li class="opac-li"><a href="promotor.html" alt="Promotor">Promotor</a></li>
+					<li class="opac-li"><a href="mercado.html" alt="Mercado">Mercado</a></li>
+					<li class="opac-li active"><a href="usuario.html" alt="Usuário">Usuário</a></li>
+				</ul>
+			</li>
+			<li><a href="promotores.html"><i class="fa fa-universal-access" aria-hidden="true"></i> <span>Promotores</span></a></li>
+			<li><a href="mercados.html"><i class="fa fa-universal-access" aria-hidden="true"></i> <span>Mercados</span></a></li>
+			<li><a href="usuarios.html"><i class="fa fa-universal-access" aria-hidden="true"></i> <span>Usuarios</span></a></li>
+		</ul>
+		<span class="minima"><i class="fa fa-align-justify" aria-hidden="true"></i></span>
+	</aside>
+	<div class="title-page">
+		<div class="title">
+			<h1>Cadastros - Usuario</h1>
+		</div>
+	</div>
+	<div class="conteudo">
+		<div class="container-cadastros">
+			<form method="post" action="index.html" class="form-cad-user">
+				<div class="table">
+					<div class="td">
+						<label>Nome</label>
+						<input type="text" id="nome" name="nome" placeholder="Ex.: Expedito Ribeiro Cedro" required/>
+					</div>
+					<div class="td space"></div>
+					<div class="td td_menor_usuario">
+						<label>Tipo de Usuario</label>
+						<select id="tipo_user" name="tipo_usuario">
+							<option value="" selected disabled>Selecione</option>
+							<option value="Administrador">Administrador</option>
+							<option value="Operador">Operador</option>
+						</select>
+					</div>
+					<div class="td space"></div>
+					<div class="td td_menor_usuario">
+						<label>Status</label>
+						<select id="empresa" name="empresa">
+							<option value="Ativo" selected>Ativo</option>
+							<option value="Inativo">Inativo</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="table">
+					<div class="td">
+						<label>Login</label>
+						<input type="text" id="login" name="login" placeholder="ExpeditoCedro" required/>
+					</div>
+					<div class="td space"></div>
+					<div class="td">
+						<label>Senha</label>
+						<input type="text" id="senha" name="senha" placeholder="promout_123@" required/>
+					</div>
+				</div>
+				<input type="submit" value="Enviar" name="btnEnviar" />
+				<input type="hidden" id="txtLatitude" name="txtLatitude" />
+				<input type="hidden" id="txtLongitude" name="txtLongitude" />
+			</form>
+
+		</div>
+	</div>
+
+	<footer>
+		<!-- footer -->
+	</footer>
+	<script>
+		$('.botao-mostrar-site input').click(function(event) {
+
+			var tipo_logradouro = $('#tipo_logradouro').val()
+			var endereco = $('#endereco').val();
+			if(endereco == null && endereco == undefined){
+				endereco = " ";
+			}
+			var cep = $('#cep').val();
+			var logradouro_completo = endereco + ' - ' +  cep;
+			$('#txtEndereco').val(logradouro_completo);
+		});
+
+
+		$('.minima').click(function(event) {
+			$('aside ul li span').toggleClass('dnon');
+			$('aside').toggleClass('min-aside');
+		});
+		$('aside ul li.aside-cad').click(function(event) {
+			$('aside ul li ul.aside-cad').toggleClass('abre-aside');
+			$('aside ul li ul li').toggleClass('opac-li');
+		});
+		$('.user i').click(function(event) {
+			$('.configuracoes-user').toggleClass('configuracoes-user-show');
+			//$('.configuracoes-user ul').toggleClass('config-user-show');
+		});
+	</script>
+</body>
+</html>

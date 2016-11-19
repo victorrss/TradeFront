@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HOME</title>
+	<meta charset="utf-8" lang="pt-BR" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<link rel="stylesheet" href="fontaw/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAF9SwzxHRiH5n3RGs2-CVha2GEhXVFFqw&amp;sensor=false"></script>
+	<script type="text/javascript" src="js/map.js"></script>
+</head>
+<body>
+	<header>
+			<div class="topo">
+				<div class="logo">
+					<img src="img/logo.png" alt="" />
+				</div>
+				<div class="top-direita">
+					<a href="##">Sair <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+				</div>
+			</div>
+	</header>
+	<aside>
+		<div class="user">
+			Usuario: <span>Gilberto Gomes</span>  <i class="fa fa-cog" aria-hidden="true"></i>
+			<div class="configuracoes-user">
+				<ul>
+					<li><a href="" title="">Alterar Senha</a></li>
+					<li><a href="#" title="">Alterar informações da conta</a></li>
+				</ul>
+			</div>
+		</div>
+		<ul>
+			<li class="active"><a href="index.html"><i class="fa fa-map" aria-hidden="true"></i> <span>Home</span></a></li>
+			<li class="aside-cad"><i class="fa fa-blind" aria-hidden="true"></i> <span>Cadastros</span>
+				<ul class="aside-cad">
+					<li><a href="promotor.html" alt="Promotor">Promotor</a></li>
+					<li><a href="mercado.html" alt="Mercado">Mercado</a></li>
+					<li><a href="usuario.html" alt="Usuário">Usuário</a></li>
+				</ul>
+			</li>
+			<li><a href="promotores.html"><i class="fa fa-universal-access" aria-hidden="true"></i> <span>Promotores</span></a></li>
+			<li><a href="mercados.html"><i class="fa fa-universal-access" aria-hidden="true"></i> <span>Mercados</span></a></li>
+			<li><a href="usuarios.html"><i class="fa fa-universal-access" aria-hidden="true"></i> <span>Usuarios</span></a></li>
+		</ul>
+		<span class="minima"><i class="fa fa-align-justify" aria-hidden="true"></i></span>
+	</aside>
+
+
+
+
+	<div class="title-page">
+		<div class="title">
+			<h1>Home - Mapa e Localização</h1>
+		</div>
+	</div>
+	<div class="conteudo">
+			<div class="container-map">
+				<h2>Mapa de Usuários</h2>
+				<div id="map-canvas"></div>
+			</div>
+			<div class="container-user">
+				<h2>Localização dos promotores</h2>
+				<div class="desc-user">
+					<div class="espec-user">
+						<div class="nome-user">Gilberto</div>
+						<div class="mercado-user">Extra</div>
+						<div class="horario-user">16:00</div>
+					</div>
+					<div class="espec-user">
+						<div class="nome-user">Gilberto</div>
+						<div class="mercado-user">Extra</div>
+						<div class="horario-user">16:00</div>
+					</div>
+					<div class="espec-user">
+						<div class="nome-user">Gilberto</div>
+						<div class="mercado-user">Extra</div>
+						<div class="horario-user">16:00</div>
+					</div>
+					<div class="espec-user">
+						<div class="nome-user">Gilberto</div>
+						<div class="mercado-user">Extra</div>
+						<div class="horario-user">16:00</div>
+					</div>
+				</div>
+			</div>
+			<br class="clear" />
+	</div>
+
+	<footer>
+		<!-- footer -->
+	</footer>
+	<script>
+		$('.minima').click(function(event) {
+			$('aside ul li span').toggleClass('dnon');
+			$('aside').toggleClass('min-aside');
+		});
+		$('aside ul li.aside-cad').click(function(event) {
+			$('aside ul li ul.aside-cad').toggleClass('abre-aside');
+			$('aside ul li ul li').toggleClass('opac-li');
+		});
+		$('.user i').click(function(event) {
+			$('.configuracoes-user').toggleClass('configuracoes-user-show');
+			//$('.configuracoes-user ul').toggleClass('config-user-show');
+		});
+	</script>
+</body>
+</html>

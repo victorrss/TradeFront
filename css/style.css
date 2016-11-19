@@ -1,0 +1,484 @@
+@import 'https://fonts.googleapis.com/css?family=Open+Sans';
+body,
+ul,
+li,
+em,
+span {
+	font-family: 'Open sans', sans-serif;
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	background: #eee;
+}
+
+h1 {
+	font-size: 22px;
+	text-shadow: 1px 1px 1px #fff;
+	margin: 0;
+	text-align: left;
+	padding: 26px 0px;
+	margin-left: 250px;
+	font-weight: 100;
+}
+
+.title {
+	background: linear-gradient(#d4d4d4, #ffffff);
+	border-bottom: solid 1px #eee;
+}
+
+.base {
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.table {
+	display: table;
+	table-layout: fixed;
+}
+
+.td {
+	display: table-cell;
+	box-sizing: border-box;
+}
+
+.td.space {
+	width: 15px;
+}
+
+
+/* ----------- TOPO --------- */
+
+.topo {
+	height: 60px;
+}
+
+.logo {
+	width: 30%;
+	display: inline-block;
+	margin: 9px 0 0 9px;
+}
+
+.logo img {
+	max-width: 100%;
+}
+
+.top-direita {
+	width: 200px;
+	float: right;
+	margin-top: 18px;
+}
+
+.top-direita a {
+	color: #fff;
+	font-size: 14px;
+	text-decoration: none;
+	padding: 5px 12px;
+	background: #2c363d;
+	border-radius: 2px;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.49);
+}
+
+header {
+	background: linear-gradient( #38464f, #313131);
+}
+
+
+/*---------- MENU ----------*/
+
+
+/*user*/
+
+.user {
+	display: inline-block;
+	text-align: left;
+	margin: 8px 0px;
+	font-size: 12px;
+	border-bottom: 3px solid #525252;
+	width: 100%;
+	padding: 8px 0px 16px 0px;
+}
+
+.user span {
+	font-weight: bold;
+}
+
+.user i {
+	float: right;
+	margin: 2px 12px 0px 0px;
+}
+
+.configuracoes-user ul li a {
+	text-decoration: none;
+	font-style: italic;
+}
+
+.configuracoes-user {
+	transition: ease 300ms all;
+	visibility: hidden;
+	height: 0;
+	opacity: 0;
+}
+
+.configuracoes-user ul {
+	position: absolute;
+}
+
+.configuracoes-user-show {
+	visibility: visible;
+	opacity: 1;
+	height: 50px;
+}
+
+.configuracoes-user ul.config-user-show {
+	display: block;
+}
+
+
+/*  /user */
+
+.mminima {
+	color: 000;
+}
+
+.min-aside {
+	width: 55px;
+}
+
+aside {
+	width: 220px;
+	color: #fff;
+	transition: ease 300ms all;
+	background: #313131;
+	font-size: 19px;
+	float: left;
+	padding-left: 10px;
+	height: 100vh;
+}
+
+aside ul {
+	list-style: none;
+}
+
+aside ul li {
+	padding: 5px;
+	position: relative;
+	cursor: pointer;
+	border-left: 3px solid #565656;
+	transition: ease 200ms all;
+}
+
+aside ul li:hover {
+	background: #565656;
+	border-left: 3px solid #24a69a;
+	padding-left: 10px;
+}
+
+aside ul li span {
+	opacity: 1;
+	display: inline-block;
+	transition: ease 300ms all;
+	padding: 0px 10px;
+	position: absolute;
+	font-size: 15px;
+}
+
+aside ul li ul li a {
+	color: #fff;
+	text-shadow: 1px 1px 0px #464646;
+	font-size: 14px;
+	text-transform: uppercase;
+	text-decoration: none;
+	padding: 6px 0 0 5px;
+	display: block;
+}
+
+aside ul li ul li {
+	transition: ease 400ms all 0.2s;
+	opacity: 0;
+	border: 0;
+}
+
+aside ul li ul {
+	background: rgba(0, 0, 0, 0.32);
+	z-index: 999;
+	visibility: hidden;
+	height: 0;
+	width: 100%;
+	transition: ease 400ms all 0.2s;
+	box-shadow: 1px 1px 5px rgba(255, 255, 255, 0.16);
+}
+
+.abre-aside {
+	visibility: visible;
+	height: 150px;
+}
+
+.active ul {
+	visibility: visible;
+	height: 150px;
+	background: #484848;
+}
+
+.active ul li {
+	opacity: 1;
+}
+.active ul li.active {
+	background: #23a599;
+}
+.opac-li {
+	opacity: 1;
+}
+
+aside ul li span.dnon {
+	transition: ease 300ms all;
+	opacity: 0;
+}
+
+span.minima {
+	text-align: center;*
+	width: 30px;
+	display: block;
+	border-bottom: 1px solid #eee;
+}
+
+aside ul li a {
+	color: #fff;
+	display: block;
+}
+
+aside ul li.active {
+	background: #5f5f5f;
+	border-left: 3px solid #23a599;
+}
+
+/* ------------- /MENU ----------- */
+
+.conteudo {
+	float: left;
+	max-width: 80%;
+}
+
+
+/*-------------- RESERVADOS HOME --------*/
+
+#map-canvas {
+	height: 80%;
+	width: 100%;
+}
+
+#iw_container .iw_title {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.iw_content {
+	padding: 15px 15px 15px 0;
+}
+
+.container-map,
+.container-user {
+	width: 100%;
+	height: 400px;
+	float: left;
+	padding: 10px;
+	margin-bottom: 0;
+	margin: 10px;
+	background: #fff;
+	border: solid 1px #d4d4d4;
+}
+
+.container-map h2,
+.container-user h2 {
+	font-size: 15px;
+	text-transform: uppercase;
+	padding: 1px 0px 0px 9px;
+	font-weight: 100;
+}
+
+.clear {
+	clear: both;
+}
+
+.container-user {
+	height: auto;
+}
+
+.espec-user {
+	padding: 5px;
+	margin-bottom: 6px;
+	display: table;
+	width: calc(100% - 10px);
+	table-layout: fixed;
+	border-bottom: solid 1px #eee;
+}
+
+.espec-user div {
+	display: table-cell;
+	color: #333;
+	padding: 0px 5px;
+	margin: 0px 2px;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.espec-user div:last-child {
+	border-right: 0;
+}
+
+
+/* --------- /RESERVADOS HOME  ----------- */
+
+
+/* ------------ CADASTROS ---------- */
+
+.container-cadastros {
+	background: #f7f7f7;
+	padding: 5px;
+	margin: 10px;
+	box-shadow: 1px 1px 1px #bbb;
+	border: solid 1px #d4d4d4;
+}
+
+.container-cadastros .table {
+	width: 100%;
+}
+
+.container-cadastros input {
+	width: 100%;
+}
+
+.container-cadastros input,
+.container-cadastros select {
+	width: calc(100% - 16px);
+	padding: 10px 0 10px 9px;
+	margin-bottom: 15px;
+	border: solid 1px #b9b9b9;
+	border-radius: 2px;
+	box-shadow: -1px 1px 1px rgba(189, 189, 189, 0.51);
+}
+.container-cadastros .cep {
+	width: 28%;
+}
+
+
+/*modificação da pagina promotor para empresa */
+
+.container-cadastros select {
+	width: calc(100% - 7px);
+}
+
+form label {
+	font-size: 12px;
+	text-transform: uppercase;
+	padding: 1px 0px 0px 4px;
+	font-weight: 100;
+}
+
+input.input-idade {
+	width: 100px;
+}
+
+.nascimento-date input {
+	height: 15px;
+}
+
+select {
+	height: 37px;
+}
+
+.td_menor_usuario {
+	width: 150px;
+}
+
+
+
+/*pagina de lista*/
+
+.cadastrar-mais
+{
+	position: absolute;
+	right: 50px;
+	top: 77px;
+}
+.cadastrar-mais a {
+	padding: 7px 17px;
+	border-radius: 50%;
+	box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.1);
+	display: block;
+	background: #23a599;
+	color: #fff;
+	font-weight: 900;
+	text-decoration: none;
+	font-size: 24px;
+}
+
+.lista-container {
+    width: 100%;
+    background: #f9f9f9;
+    padding: 23px;
+    margin: 7px 0px 0px 11px;
+    box-sizing: border-box;
+}
+.lista-title, .linha-dados {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+.td.lista-40{
+	width: 40%;
+	text-align: left;
+}
+.lista-opcoes {
+    float: right;
+    width: 79px;
+	text-shadow: 1px 1px 1px #AAA;
+}
+.lista-title input {
+    width: 98%;
+    display: block;
+    padding: 7px 0px 7px 4px;
+    margin: 5px 0px;
+	border: solid 1px #b9b9b9;
+	box-shadow: -1px 1px 1px rgba(189, 189, 189, 0.51);
+}
+.lista-title form{
+	display: table;
+	width: 100%;
+}
+.linha-dados .td {
+   font-size: 14px;
+line-height: 38px;
+vertical-align: top;
+}
+.linha-dados a {
+    font-size: 15px;
+    color: #2C2C2C;
+    background: #fff;
+    padding: 2px 7px;
+    border-radius: 50%;
+}
+.linha-dados {
+	background: #f2f2f2;
+}
+.linha-dados:nth-child(2n+1) a{
+    background: #eee;
+}
+.linha-dados:nth-child(2n+1) {
+    background: #fff;
+    border: solid 1px #f2f2f2;
+}
+.icons-edit{
+	float: right;
+padding-right: 13px;
+}
+
+.lista-40 {
+    width: 34%;
+		padding-left: 10px;
+}
+
+.endereco-mercado {
+	width: 	65%;
+}
