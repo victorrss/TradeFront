@@ -104,16 +104,13 @@
 		<!-- footer -->
 	</footer>
 	<script>
-	RESTinserirMercado();
-	$('#loadingDiv')
-    .hide()  // hide it initially
+	$('#loadingDiv').hide()  // hide it initially
     .ajaxStart(function() {
         $(this).show();
     })
     .ajaxStop(function() {
         $(this).hide();
-    })
-;
+    });
 	$('.botao-mostrar-site input').click(function(event) {
 		if($('#userEndereco').val().length < 5){
 			$.MessageBox({

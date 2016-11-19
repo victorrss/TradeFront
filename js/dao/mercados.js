@@ -6,7 +6,7 @@ $(document).ready(function($) {
 });
 
 
-function RESTlistarMercados(tipo_pagina){
+function RESTlistarMercados(){
 	$.getJSON(url, function(data) {
 		for (var i = 0 ; i < data.length; i++) {
 			var linhaMercado = '<div class="linha-dados table" id="listMercado">'
