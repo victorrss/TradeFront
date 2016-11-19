@@ -11,8 +11,16 @@
 	<link href="auto/estilo.css" type="text/css" rel="stylesheet" />
 
 	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAF9SwzxHRiH5n3RGs2-CVha2GEhXVFFqw&amp;sensor=false"></script>
-	<script type="text/javascript" src="js/map.js"></script>
-
+	<script type="text/javascript" src="js/criar-mapa-tarefa.js"></script>
+	<style>
+		.selecionado{
+			background: #333;
+			color: #fff;
+		}
+		.selecionado em{
+			float: right;
+		}
+	</style>
 </head>
 <body>
 	<header>
@@ -60,13 +68,26 @@
 		<div class="container-cadastros">
 			<form method="post" action="index.html">
 				<div class="lista-promotor">
+					Promotor
+					<input type="text" class="nome-promotor" />
 
+					<div class="selecionado"> <span></span> <em>x</em></div>
+					<div class="lista-todos-promotores">
+						<div class="nome-promo-lista">Denis</div>
+						<div class="nome-promo-lista">Andre</div>
+						<div class="nome-promo-lista">Rubens</div>
+						<div class="nome-promo-lista">Marcelo</div>
+						<div class="nome-promo-lista">Matheus</div>
+						<div class="nome-promo-lista">Bruno</div>
+						<div class="nome-promo-lista">Divino</div>
+						<div class="nome-promo-lista">Chistiane</div>
+					</div>
 				</div>
 
 				<div class="container-map">
-				<h2>Mapa de Usuários</h2>
-				<div id="map-canvas"></div>
-			</div>
+					<h2>Mercados Por Usuario</h2>
+					<div id="map-canvas"></div>
+				</div>
 
 
 
@@ -79,6 +100,26 @@
 		<!-- footer -->
 	</footer>
 	<script>
+		$(function(){
+			$(".nome-promotor").keyup(function(){
+				var texto = $(this).val();
+				$(".nome-promo-lista").css("display", "block");
+				$(".nome-promo-lista").each(function(){
+					if($(this).text().toUpperCase().indexOf(texto.toUpperCase()) < 0)
+						$(this).css("display", "none");
+				});
+			});
+			$(".nome-promo-lista").click(function(event) {
+				$(".selecionado span").html($(this).text());
+				$(".lista-todos-promotores").css('disable', '');
+			});
+			$(".selecionado em").click(function(event) {
+				$(".selecionado span").text("");
+			});
+		});
+
+
+
 		$('.minima').click(function(event) {
 			$('aside ul li span').toggleClass('dnon');
 			$('aside').toggleClass('min-aside');
