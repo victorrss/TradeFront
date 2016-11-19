@@ -11,4 +11,4 @@ function getUrlVars()
 	return vars;
 }
 
-console.log(getUrlVars()["id"] + " , " + getUrlVars()["tipo"]);
+//console.log(getUrlVars()["id"] + " , " + getUrlVars()["tipo"]);
