@@ -13,12 +13,62 @@
 	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAF9SwzxHRiH5n3RGs2-CVha2GEhXVFFqw&amp;sensor=false"></script>
 	<script type="text/javascript" src="js/criar-mapa-tarefa.js"></script>
 	<style>
-		.selecionado{
-			background: #333;
-			color: #fff;
+	.container-map{
+		    width: 900px;
 		}
-		.selecionado em{
+		.promotor-selecionado {
+			background: #fff;
+			color: #505050;
+			padding: 5px;
+			border: solid 1px #d4d4d4;
+			box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.19);
+			border-radius: 4px;
+			font-size: 14px;
+			display: none;
+			width: calc(100% - 21px);
+			border-left: 3px solid #23a599;
+		}
+		.promotor-selecionado em{
 			float: right;
+		}
+		.lista-todos-promotores {
+			padding: 8px;
+			background: #ffffff;
+			border: solid 1px #eee;
+			box-shadow: inset 0px 0px 8px #e6e6e6;
+			font-size: 14px;
+
+		}
+		.lista-promotor {
+			width: 500px;
+			padding: 5px;
+		}
+		.nome-promo-lista span {
+			float: right;
+		}
+		.nome-promo-lista {
+			background: linear-gradient(#fff, #f9f9f9);
+			padding: 3px 10px;
+			cursor: pointer;
+			margin-bottom: 5px;
+			transition:ease 100ms all;
+			border-radius: 3px;
+			border-left: 3px solid transparent;
+		}
+		.nome-promo-lista:hover {
+			border-color: #23a599;
+			background: #eee;
+		}
+		.id-promotor {
+			display: inline-block;
+			font-size: 11px;
+			margin-right: 5px;
+			background: #eee;
+			padding: 2px 7px;
+			border-radius: 50%;
+		}
+		.dados-promotor-selecionado {
+			display: inline-block;
 		}
 	</style>
 </head>
@@ -69,28 +119,23 @@
 			<form method="post" action="index.html">
 				<div class="lista-promotor">
 					Promotor
-					<input type="text" class="nome-promotor" />
+					<input type="text" class="nome-promotor" placeholder="Pesquisar nome do promotor" />
 
-					<div class="selecionado"> <span></span> <em>x</em></div>
+					<div class="promotor-selecionado">
+						<div class="dados-promotor-selecionado">
+
+						</div>
+						<em>x</em>
+					</div>
 					<div class="lista-todos-promotores">
-						<div class="nome-promo-lista">Denis</div>
-						<div class="nome-promo-lista">Andre</div>
-						<div class="nome-promo-lista">Rubens</div>
-						<div class="nome-promo-lista">Marcelo</div>
-						<div class="nome-promo-lista">Matheus</div>
-						<div class="nome-promo-lista">Bruno</div>
-						<div class="nome-promo-lista">Divino</div>
-						<div class="nome-promo-lista">Chistiane</div>
+						<!-- Dados que vem do json - criar-mapa-tarefa.js -->
 					</div>
 				</div>
-
 				<div class="container-map">
+				<input type="button" class="btn-escolher-mercados" onclick="centroMapRenderize();">
 					<h2>Mercados Por Usuario</h2>
 					<div id="map-canvas"></div>
 				</div>
-
-
-
 				<input type="submit" value="Enviar" name="btnEnviar" />
 			</form>
 		</div>
@@ -100,23 +145,31 @@
 		<!-- footer -->
 	</footer>
 	<script>
-		$(function(){
-			$(".nome-promotor").keyup(function(){
-				var texto = $(this).val();
-				$(".nome-promo-lista").css("display", "block");
-				$(".nome-promo-lista").each(function(){
-					if($(this).text().toUpperCase().indexOf(texto.toUpperCase()) < 0)
-						$(this).css("display", "none");
-				});
-			});
-			$(".nome-promo-lista").click(function(event) {
-				$(".selecionado span").html($(this).text());
-				$(".lista-todos-promotores").css('disable', '');
-			});
-			$(".selecionado em").click(function(event) {
-				$(".selecionado span").text("");
+		/*Funcção qe vai listar todos os promotores*/
+		ListarPromotores();
+		/*  Direciona o promotor clicado para a função que vai pegar o id  */
+		$(".nome-promo-lista").click(pegaClickSelecao);
+		/*Pega o digitar no input e reorganiza as coisas*/
+		$(".nome-promotor").keyup(function(){
+			var texto = $(this).val();
+			$(".nome-promo-lista").css("display", "block");
+			$(".nome-promo-lista").each(function(){
+				if($(this).text().toUpperCase().indexOf(texto.toUpperCase()) < 0)
+					$(this).css("display", "none");
 			});
 		});
+		/*desseleciona o promotor escolhido*/
+		$(".promotor-selecionado em").click(function(event) {
+			$(".promotor-selecionado .dados-promotor-selecionado").text("");
+			$(".lista-todos-promotores").slideToggle(300);
+			$(".promotor-selecionado").slideToggle(300);
+		});
+
+
+
+
+
+
 
 
 

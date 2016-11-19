@@ -1,7 +1,7 @@
-/*ainda nao está pronto*/
+
+var url = "http://192.168.0.2:8080/TradeForce/promotor";
 
 $(document).ready(function() {
-	var url = "http://192.168.0.2:8080/TradeForce/promotor";
 	$.getJSON(url, function(data) {
 		console.log(data);
 		for (var i = 0 ; i <= data.length; i++) {
