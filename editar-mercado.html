@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Editar - Mercados</title>
 	<meta charset="utf-8" lang="pt-BR" />
@@ -10,11 +11,21 @@
 	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAF9SwzxHRiH5n3RGs2-CVha2GEhXVFFqw&amp;sensor=false"></script>
 	<script type="text/javascript" src="js/load.js"></script>
 	<script type="text/javascript" src="js/messagebox.min.js"></script>
+	<script type="text/javascript" src="js/get-dados.js"></script>
 	<script type="text/javascript" src="auto/mapa.js"></script>
+	<script type="text/javascript" src="js/dao/mercados.js"></script>
 	<script type="text/javascript" src="auto/jquery-ui.custom.min.js"></script>
 	<link href="auto/estilo.css" type="text/css" rel="stylesheet" />
 </head>
+
 <body>
+	<script>
+	$(document).ready(function($) {
+		id = getUrlVars()["id"];
+		console.log(id);
+    $(".btnEnviar").attr("onclick","editar("+id+")");
+	});
+	</script>
 	<header>
 		<div class="topo">
 			<div class="logo">
@@ -27,7 +38,7 @@
 	</header>
 	<aside>
 		<div class="user">
-			Usuario: <span>Gilberto Gomes</span>  <i class="fa fa-cog" aria-hidden="true"></i>
+			Usuario: <span>Gilberto Gomes</span> <i class="fa fa-cog" aria-hidden="true"></i>
 			<div class="configuracoes-user">
 				<ul>
 					<li><a href="" title="">Alterar Senha</a></li>
@@ -67,7 +78,8 @@
 					<div class="td space"></div>
 					<div class="td">
 						<label>Razão Social</label>
-						<input type="text" id="razaoSocial" name="razaoSocial" id="razaoSocial" placeholder="Ex.: Jair Bolsonaro Multi Nivel Agro Mercado LTDA" />
+						<input type="text" id="razaoSocial" name="razaoSocial" id="razaoSocial" placeholder="Ex.: Jair Bolsonaro Multi Nivel Agro Mercado LTDA"
+						/>
 					</div>
 				</div>
 
@@ -78,7 +90,7 @@
 					</div>
 					<div class="td space"></div>
 					<div class="td botao-mostrar-site">
-						<label></label><br /	>
+						<label></label><br />
 						<input type="button" id="btnEndereco" onclick="clickMostrarMapa()" name="btnEndereco" value="Mostrar no mapa" />
 					</div>
 				</div>
@@ -90,7 +102,7 @@
 
 				</div>
 				<div id="mapa"></div>
-				<input type="button" onclick="inserir()" value="Enviar" name="btnEnviar" />
+				<input class="btnEnviar" type="button" onclick="" value="Enviar" name="btnEnviar" />
 				<input type="hidden" id="txtLatitude" name="txtLatitude" />
 				<input type="hidden" id="txtLongitude" name="txtLongitude" />
 			</form>
@@ -117,4 +129,5 @@
 		});
 	</script>
 </body>
+
 </html>
