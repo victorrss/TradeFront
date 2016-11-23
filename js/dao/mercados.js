@@ -1,18 +1,70 @@
-var url = 'https://private-5b99d-tradeplace.apiary-mock.com/mercados';
-//var url = 'http://localhost:8080/TradeForce/mercado';
+//var url = 'https://private-5b99d-tradeplace.apiary-mock.com/mercados';
+var url = 'http://localhost:8080/TradeForce/mercado';
 
-	var nome ;
-	var razaoSocial ;
-	var endereco ;
-	var lat ;
-	var lng ;
+var nome ;
+var razaoSocial ;
+var endereco ;
+var lat ;
+var lng ;
 var mostrarMapa = false;
+
 $(document).ready(function ($) {
-	mostrarMapa = false;
+mostrarMapa = false;
+if (window.location.href.match("editar-mercado.html")) {
+	var id = getUrlVars()["id"];
+	listarPorId(id)	;
+	$(".btnEnviar").attr("onclick","editar("+id+")");
+}
 });
 
 
-function RESTlistarMercados() {
+function CallbackListarPorID(data) {
+	ajaxindicatorstop()
+		mercado = {};
+		mercado.nome = data.nome;
+		mercado.endereco = data.endereco;
+		mercado.razaoSocial = data.razaoSocial;
+		mercado.latitude = data.localizacao.latitude;
+		mercado.longitude = data.localizacao.longitude;
+		$('#nome').val(mercado.nome);
+		$('#razaoSocial').val(mercado.razaoSocial);
+		$('#userEndereco').val(mercado.endereco);
+		$('#txtEndereco').val(mercado.endereco);
+		$('#txtLatitude').val(mercado.latitude);
+		$('#txtLongitude').val(mercado.longitude);
+		$("#btnEndereco").click();
+  return mercado;
+}
+
+function RESTlistarPorID(id){
+    var result;
+		ajaxindicatorstart('Aguarde');
+    	$.getJSON(url+'/'+id,  CallbackListarPorID)
+			.fail(function() {
+				ajaxindicatorstop()//fail,always,error
+				$.MessageBox({
+					customClass: "custom_messagebox",
+					message: "Ocorreu um erro, tente novamente!"
+				});
+			});
+}
+
+function RESTdeletar(id) {
+	return $.ajax({
+		global: true,
+		type: 'DELETE',
+		url: url+'/'+id,
+		error: function (jqXHR, textStatus, errorThrown) {
+			$.MessageBox({
+				customClass: "custom_messagebox",
+				message: "Não foi possível enviar sua requisição, o servidor retornou um erro. <br> Tente novamente!"
+			});
+		}
+	});
+}
+
+function RESTlistar() {
+	ajaxindicatorstart('Aguarde');
 	$.getJSON(url, function (data) {
 		for (var i = 0; i < data.length; i++) {
 			var linhaMercado = '<div class="linha-dados table" id="listMercado">'
@@ -31,10 +83,18 @@ function RESTlistarMercados() {
 				+ '</div>';
 			$("#containerMercados").append(linhaMercado);
 		}
+		ajaxindicatorstop()
+	})
+	.fail(function() { //fail,always,error
+		$.MessageBox({
+			customClass: "custom_messagebox",
+			message: "Ocorreu um erro, tente novamente!"
+		});
 	});
 }
 
-function RESTinserirMercado(nome, razaoSocial, endereco, lat, lng) {
+function RESTinserir(nome, razaoSocial, endereco, lat, lng) {
+	//console.log(nome + ' ' + razaoSocial + ' ' + endereco + ' ' + lat + ' ' + lng);
 	return $.ajax({
 		//async: false,
 		global: true,
@@ -55,19 +115,15 @@ function RESTinserirMercado(nome, razaoSocial, endereco, lat, lng) {
 	});
 }
 
-function RESTeditarMercado(id, nome, razaoSocial, endereco, lat, lng) {
+function RESTeditar(id, nome, razaoSocial, endereco, lat, lng) {
 	return $.ajax({
 		//async: false,
 		global: true,
 		type: 'PUT',
-		url: url,
-		data: "{'id': '" + id + "','endereco': '" + endereco + "','nome':'" + nome + "','razaoSocial': '" + razaoSocial + "', 'localizacao': {'latitude': '" + lat + "','longitude': '" + lng + "'}}",
+		url: url+'/'+id,
+		data: '{"endereco": "' + endereco + '","nome":"' + nome + '","razaoSocial": "' + razaoSocial + '", "localizacao": {"latitude": "' + lat + '","longitude": "' + lng + '"}}',
 		contentType: "application/json; charset=UTF-8",
 		error: function (jqXHR, textStatus, errorThrown) {
-			/*if(textStatus==="timeout") {
-				  //do something on timeout
-			  }
-			  */
 			$.MessageBox({
 				customClass: "custom_messagebox",
 				message: "Não foi possível enviar sua requisição, o servidor retornou um erro. <br> Tente novamente!"
@@ -75,10 +131,11 @@ function RESTeditarMercado(id, nome, razaoSocial, endereco, lat, lng) {
 		}
 	});
 }
+
 function handleData(data, textStatus, jqXHR) {
 	console.log(JSON.stringify(textStatus));
-	//console.log(JSON.stringify(data));
-	//console.log(JSON.stringify(jqXHR));
+	console.log(JSON.stringify(data));
+	console.log(JSON.stringify(jqXHR));
 
 	if (jqXHR.status == 201) {
 		$('#nome').val("");
@@ -93,7 +150,13 @@ function handleData(data, textStatus, jqXHR) {
 			message: "Cadastrado com sucesso!"
 		});
 	}
+	/// continuar daqui
 	else {
+		$.MessageBox({
+			customClass: "custom_messagebox",
+			message: "Ocorreu um erro, tente novamente!"
+		});
+	}else {
 		$.MessageBox({
 			customClass: "custom_messagebox",
 			message: "Ocorreu um erro, tente novamente!"
@@ -103,15 +166,29 @@ function handleData(data, textStatus, jqXHR) {
 
 
 }
+
+function listarPorId(id) {
+RESTlistarPorID(id);
+}
+
+function excluir(id) {
+	   RESTdeletar(id);
+}
+
 function editar(id) {
 	if (validacaoForm() != true) { return; }
-	   RESTeditarMercado(id, nome, razaoSocial, endereco, lat, lng);
+	nome = $('#nome').val();
+	razaoSocial = $('#razaoSocial').val();
+	endereco = $('#txtEndereco').val();
+	lat = $('#txtLatitude').val();
+	lng = $('#txtLongitude').val();
+	RESTeditar(id, nome, razaoSocial, endereco, lat, lng).done(handleData);
 }
 
 function inserir() {
 	if (validacaoForm() != true) { return; }
 	//console.log(nome + " - " + razaoSocial + " - " + endereco + " - " + lat + " - " + lng);
-	RESTinserirMercado(nome, razaoSocial, endereco, lat, lng).done(handleData);
+	RESTinserir(nome, razaoSocial, endereco, lat, lng).done(handleData);
 }
 
 function clickMostrarMapa() {
@@ -134,10 +211,10 @@ function validacaoForm() {
 		});
 		return false;
 	}
-	var nome = $('#nome').val();
-	var razaoSocial = $('#razaoSocial').val();
-	var endereco = $('#txtEndereco').val();
-	var lat = $('#txtLatitude').val();
-	var lng = $('#txtLongitude').val();
+	nome = $('#nome').val();
+	razaoSocial = $('#razaoSocial').val();
+	endereco = $('#txtEndereco').val();
+	lat = $('#txtLatitude').val();
+	lng = $('#txtLongitude').val();
 	return true;
 }
