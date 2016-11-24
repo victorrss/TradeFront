@@ -87,8 +87,9 @@ function RESTlistar() {
 				+ '<a href="javascript: excluir('+ data[i].id +');"><i class="fa fa-trash" aria-hidden="true"></i></a>'
 				+ '</div>'
 				+ '</div>';
-			$("#containerMercados").append(linhaMercado);
+			$(".lista-dados").append(linhaMercado);
 		}
+		loadPaginacao()
 		ajaxindicatorstop()
 	})
 	.fail(function() { //fail,always,error
@@ -168,7 +169,6 @@ function handleData(data, textStatus, jqXHR,acao) {
 		}
 	}else {
 			$.MessageBox({
-
 				message: "Ocorreu um erro, tente novamente!"
 			});
 	}

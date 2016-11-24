@@ -8,9 +8,10 @@
 	<link rel="stylesheet" href="fontaw/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="css/style.css" />
 	<link rel="stylesheet" href="css/messagebox.css" />
+	<script type="text/javascript" src="js/paginacao.js"></script>
 	<script type="text/javascript" src="js/load.js"></script>
 		<script type="text/javascript" src="js/messagebox.min.js"></script>
-	<script type="text/javascript" src="js/rest/mercados.js"></script>
+	<script type="text/javascript" src="js/rest/mercado.js"></script>
 
 
 	<!-- <script type="text/javascript" src="auto/mapa.js"></script> -->
@@ -61,24 +62,21 @@
 		</div>
 	</div>
 	<div class="conteudo">
+		<input type='hidden' id='current_page' />
+		<input type='hidden' id='show_per_page' />
 		<div class="lista-container">
 			<form action="" >
 				<div class="lista-title table">
 					<div class="td">
-						<label>NOME</label>
-						<input type="text" name="pesquisar-nome"/>
-					</div>
-					<div class="td space"></div>
-					<div class="td endereco-mercado">
-						<label>ENDREÇO</label>
-						<input type="text" name="pesquisar-endereco"/>
+						<label>Pesquisa (Nome/Endereço)</label>
+						<input type="text" id="pesquisarnome"/>
 					</div>
 				</div>
 			</form>
-			<section class="lista-dados" id="containerMercados">
+			<section class="lista-dados">
 				<!-- dados vindos do mercado.js -->
 			</section>
-
+			<div id='page_navigation'></div>
 		</div>
 
 
@@ -91,6 +89,24 @@
 
 	// CHAMADA PARA A FUNCAO DE LISTAGEM
 	RESTlistar();
+
+	// PESQUISA NO LIST
+	$('#pesquisarnome').keyup(function(event){
+		$('.linha-dados').hide();
+			var txt = $('#pesquisarnome').val();
+		$('.linha-dados').each(function(){
+			if($(this).text().toUpperCase().indexOf(txt.toUpperCase()) != -1){
+				$(this).show();
+			}
+		});
+			if ($('#pesquisarnome').val() == '') {
+					$('#page_navigation').show();
+			} else {
+					$('#page_navigation').hide();
+			}
+
+	});
+
 
 
 	$('.minima').click(function(event) {
