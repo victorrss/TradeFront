@@ -14,7 +14,7 @@
 	<script type="text/javascript" src="auto/jquery-ui.custom.min.js"></script>
 	<link href="auto/estilo.css" type="text/css" rel="stylesheet" />
 
-	<script type="text/javascript" src="js/dao/mercados.js"></script>
+	<script type="text/javascript" src="js/rest/mercados.js"></script>
 </head>
 <body>
 	<div class="loadingDiv"></div>
@@ -111,21 +111,7 @@
     .ajaxStop(function() {
         $(this).hide();
     });
-	$('.botao-mostrar-site input').click(function(event) {
-		if($('#userEndereco').val().length < 5){
-			$.MessageBox({
-			customClass : "custom_messagebox",
-			message     : "Digite o endereço corretamente!"
-			});
-			return;
-		}
-		var tipo_logradouro = $('#tipo_logradouro').val()
-		var endereco = $('#userEndereco').val();
-		if(endereco == null && endereco == undefined){
-			endereco = " ";
-		}
-		$('#txtEndereco').val(endereco);
-	});
+
 		$('.minima').click(function(event) {
 			$('aside ul li span').toggleClass('dnon');
 			$('aside').toggleClass('min-aside');

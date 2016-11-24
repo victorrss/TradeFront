@@ -143,11 +143,11 @@ header {
 }
 
 .min-aside {
-	width: 55px;
+	width: 5%;
 }
 
 aside {
-	width: 220px;
+	width: 12%;
 	color: #fff;
 	transition: ease 300ms all;
 	background: #313131;
@@ -256,8 +256,11 @@ aside ul li.active {
 /* ------------- /MENU ----------- */
 
 .conteudo {
-	float: left;
+/*	float: left;
 	max-width: 80%;
+	*/
+	margin-left: 13%	;
+	min-width: 500px;
 }
 
 

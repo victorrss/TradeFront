@@ -47,6 +47,20 @@ $(document).ready(function () {
 	}
 
 	$("#btnEndereco").click(function() {
+		if($('#userEndereco').val().length < 5){
+			$.MessageBox({
+			customClass : "custom_messagebox",
+			message     : "Digite o endereço corretamente!"
+			});
+			return;
+		}
+		var tipo_logradouro = $('#tipo_logradouro').val()
+		var endereco = $('#userEndereco').val();
+		if(endereco == null && endereco == undefined){
+			endereco = " ";
+		}
+		$('#txtEndereco').val(endereco);
+
 		if($(this).val() != "")
 			carregarNoMapa($("#txtEndereco").val());
 	})
@@ -93,4 +107,38 @@ $(document).ready(function () {
 
 
 });
+function setEditPointMap(lat, long){ //Promotor e Mercado
+	mapOptions = {
+		center: new google.maps.LatLng(lat, long),
+		zoom: 16,
+		mapTypeId: 'roadmap'
+	};
+	  map.setOptions(mapOptions);
+	var latlng = new google.maps.LatLng(lat, long);
 
+	marker = new google.maps.Marker({
+		map: map,
+		draggable: true,
+	});
+
+	marker.setPosition(latlng);
+
+	google.maps.event.addListener(marker, 'dragend', function(marker){
+        var latLng = marker.latLng;
+        currentLatitude = latLng.lat();
+        currentLongitude = latLng.lng();
+        $("#txtLatitude").val(currentLatitude);
+				$("#txtLongitude").val(currentLongitude);
+     });
+
+	google.maps.event.addListener(marker, 'drag', function () {
+ 		geocoder.geocode({ 'latLng': marker.getPosition() }, function (results, status) {
+ 			if (status == google.maps.GeocoderStatus.OK) {
+ 				if (results[0]) {
+					$('#userEndereco').val(results[0].formatted_address);
+ 					$('#txtEndereco').val(results[0].formatted_address);
+ 				}
+ 			}
+ 		});
+ 	});
+}
