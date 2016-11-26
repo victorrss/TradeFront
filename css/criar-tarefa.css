@@ -1,57 +1,114 @@
 .container-map{
-		    width: 900px;
-		}
-		.promotor-selecionado {
-			background: #fff;
-			color: #505050;
-			padding: 5px;
-			border: solid 1px #d4d4d4;
-			box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.19);
-			border-radius: 4px;
-			font-size: 14px;
-			display: none;
-			width: calc(100% - 21px);
-			border-left: 3px solid #23a599;
-		}
-		.promotor-selecionado em{
-			float: right;
-		}
-		.lista-todos-promotores {
-			padding: 8px;
-			background: #ffffff;
-			border: solid 1px #eee;
-			box-shadow: inset 0px 0px 8px #e6e6e6;
-			font-size: 14px;
+	width: 900px;
+}
+.promotor-selecionado {
+	background: #fff;
+	color: #505050;
+	padding: 5px;
+	border: solid 1px #d4d4d4;
+	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.19);
+	border-radius: 4px;
+	font-size: 14px;
+	display: none;
+	width: calc(100% - 21px);
+	border-left: 3px solid #23a599;
+}
+.promotor-selecionado em{
+	float: right;
+}
+.lista-todos-promotores {
+	padding: 8px;
+	background: #ffffff;
+	border: solid 1px #eee;
+	box-shadow: inset 0px 0px 8px #e6e6e6;
+	font-size: 14px;
 
-		}
-		.lista-promotor {
-			width: 500px;
-			padding: 5px;
-		}
-		.nome-promo-lista span {
-			float: right;
-		}
-		.nome-promo-lista {
-			background: linear-gradient(#fff, #f9f9f9);
-			padding: 3px 10px;
-			cursor: pointer;
-			margin-bottom: 5px;
-			transition:ease 100ms all;
-			border-radius: 3px;
-			border-left: 3px solid transparent;
-		}
-		.nome-promo-lista:hover {
-			border-color: #23a599;
-			background: #eee;
-		}
-		.id-promotor {
-			display: inline-block;
-			font-size: 11px;
-			margin-right: 5px;
-			background: #eee;
-			padding: 2px 7px;
-			border-radius: 50%;
-		}
-		.dados-promotor-selecionado {
-			display: inline-block;
-		}
+}
+.lista-promotor {
+    width: 30%;
+    padding: 5px;
+    display: inline-block;
+    float: left;
+    margin-right: 19px;
+}
+.nome-promo-lista span {
+	float: right;
+}
+.nome-promo-lista {
+	background: linear-gradient(#fff, #f9f9f9);
+	padding: 3px 10px;
+	cursor: pointer;
+	margin-bottom: 5px;
+	transition:ease 100ms all;
+	border-radius: 3px;
+	border-left: 3px solid transparent;
+}
+.nome-promo-lista:hover {
+	border-color: #23a599;
+	background: #eee;
+}
+.id-promotor {
+	display: inline-block;
+	font-size: 11px;
+	margin-right: 5px;
+	background: #eee;
+	padding: 2px 7px;
+	border-radius: 50%;
+}
+.dados-promotor-selecionado {
+	display: inline-block;
+}
+.lista-promotor .container-map {
+    max-width: calc(100% - 21px);
+    margin: 5px 0;
+}
+
+.lista-mercados {
+    display: inline-block;
+    width: 60%;
+        padding: 5px;
+}
+.linha-mercados {
+    width: calc(50% - 14px);
+    display: inline-block;
+}
+.linha-mercados {
+    background: linear-gradient(#fff, #f7f7f7);
+    margin: 4px;
+    padding: 5px 0px 5px 6px;
+    font-size: 14px;
+}
+
+
+
+#raioParaMercado,
+#listarmercadosnoraio{
+	display: inline-block;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+}
+#raioParaMercado {
+    width: 100px;
+    width: 61px;
+    height: 10px;
+}
+#listarmercadosnoraio {
+    width: 92px;
+    padding: 7px 0;
+    background: #eee;
+    margin: 0px 7px 0px 23px;
+}
+#raioParaMercado {
+    width: 100px;
+    width: 61px;
+    height: 10px;
+    margin: 0px 8px;
+}
+.raioselection {
+    font-size: 14px;
+    color: #656565;
+    display: inline-block;
+    float: right;
+    padding: 5px 0px 5px 22px;
+    margin: 6px 5px;
+    border-right: 5px solid #a2a2a2;
+}

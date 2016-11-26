@@ -8,6 +8,10 @@ span {
 	padding: 0;
 	margin: 0;
 }
+
+br.clear{
+	clear: both;
+}
 #page_navigation{
 	margin-top: 30px;
 	text-align: center;

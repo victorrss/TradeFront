@@ -13,6 +13,15 @@
 
 	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAF9SwzxHRiH5n3RGs2-CVha2GEhXVFFqw&amp;sensor=false"></script>
 	<script type="text/javascript" src="js/criar-mapa-tarefa.js"></script>
+
+
+	<script type="text/javascript" src="js/load.js"></script>
+	<script type="text/javascript" src="js/messagebox.min.js"></script>
+	<!-- <script type="text/javascript" src="js/rest/mercado.js"></script> -->
+	<!-- <script type="text/javascript" src="js/paginacao.js"></script> -->
+
+	<!-- <script type="text/javascript" src="js/distancia.js"></script> -->
+
 </head>
 <body>
 	<header>
@@ -73,15 +82,25 @@
 					<div class="lista-todos-promotores">
 						<!-- Dados que vem do json - criar-mapa-tarefa.js -->
 					</div>
-				<div class="container-map">
-				<!-- <input type="button" class="btn-escolher-mercados" value="Escolher Promotor" onclick="centroMapRenderize();"> -->
-					<h2>Mercados Por Usuario</h2>
-					<div id="map-canvas"></div>
+					<div class="container-map">
+						<!-- <input type="button" class="btn-escolher-mercados" value="Escolher Promotor" onclick="centroMapRenderize();"> -->
+						<h2>Local do Usuario</h2>
+						<div id="map-canvas"></div>
+					</div>
 				</div>
+				<div class="lista-mercados">
+					Mercado
+					<div class="raioselection">
+						Mercados Proximos à
+						<input type="text" id="raioParaMercado" placeholder="Raio" /> km
+						<input type="button" id="listarmercadosnoraio" value="Filtrar" />
+					</div>
+					<input type="text" class="nome-mercado" placeholder="Pesquisar nome do mercado ##Nao funciona ainda" />
+					<div class="lista-dados"></div>
 				</div>
-
 				<input type="submit" value="Enviar" name="btnEnviar" />
 			</form>
+					<br class="clear" />
 		</div>
 	</div>
 
@@ -89,6 +108,16 @@
 		<!-- footer -->
 	</footer>
 	<script>
+	$('#listarmercadosnoraio').click(function(event) {
+		$('.lista-dados').text('');
+		var raioParaMercado = $('#raioParaMercado').val();
+		/* Act on the event */
+		ListarMercados(raioParaMercado);
+	});
+
+
+
+
 		/*Funcção qe vai listar todos os promotores*/
 		ListarPromotores();
 		/*  Direciona o promotor clicado para a função que vai pegar o id  */
@@ -108,9 +137,6 @@
 			$(".lista-todos-promotores").slideToggle(300);
 			$(".promotor-selecionado").slideToggle(300);
 		});
-
-
-
 
 
 

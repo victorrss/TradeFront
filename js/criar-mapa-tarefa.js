@@ -10,30 +10,30 @@ var infoWindow;
 // A variável markersData guarda a informação necessária a cada marcador
 // Para utilizar este código basta alterar a informação contida nesta variável
 var markersData = [
-	{
-		lat: -23.536496,
-		lng: -46.646129,
-		nome: "SENAI Informatica",
-		morada1:"Alameda Barão de Limeira, 539",
-		morada2: "Santa Cecilia",
+{
+	lat: -23.536496,
+	lng: -46.646129,
+	nome: "SENAI Informatica",
+	morada1:"Alameda Barão de Limeira, 539",
+	morada2: "Santa Cecilia",
       	codPostal: "São Paulo - SP, 01202-001" // não colocar virgula no último item de cada maracdor
-  	},
-  	{
-	  	lat: -23.542628,
-	  	lng: -46.619487,
-	  	nome: "SENAI Textil",
-	  	morada1:"Rua Correia de Andrade, 232",
-	  	morada2: "Brás",
+      },
+      {
+      	lat: -23.542628,
+      	lng: -46.619487,
+      	nome: "SENAI Textil",
+      	morada1:"Rua Correia de Andrade, 232",
+      	morada2: "Brás",
 	      codPostal: "São Paulo - SP, 03008-020" // não colocar virgula no último item de cada maracdor
 	  }
-];
- 	var mapOptions = {
-  			center: new google.maps.LatLng(-23.542471, -46.618779),
-  			zoom: 16,
-  			mapTypeId: 'roadmap'
-  		};
-  	function initialize() {
-  		map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+	  ];
+	  var mapOptions = {
+	  	center: new google.maps.LatLng(-23.542471, -46.618779),
+	  	zoom: 16,
+	  	mapTypeId: 'roadmap'
+	  };
+	  function initialize() {
+	  	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
    		// cria a nova Info Window com referência à variável infowindow
    		// o conteúdo da Info Window será atribuído mais tarde
@@ -48,9 +48,9 @@ var markersData = [
    		// contida na variável markersData e criar os marcadores a mostrar no mapa
 
    		displayMarkers();
-   }
+   	}
 
-   google.maps.event.addDomListener(window, 'load', initialize);
+   	google.maps.event.addDomListener(window, 'load', initialize);
 
 
 
@@ -84,7 +84,7 @@ function displayMarkers(){
    // e consequentemente a área do mapa abrangida.
   // map.fitBounds(bounds);
 
-  	map.setOptions(mapOptions);
+  map.setOptions(mapOptions);
 
 }
 
@@ -124,6 +124,13 @@ function devolveLatLng(id){
 	latlong.longitude = promotores[id].localizacao.longitude;
 	return latlong;
 }
+
+
+
+
+var url_server = "http://localhost:8080/TradeForce/mercado";
+
+
 function ListarPromotores(){
 	$(document).ready(function() {
 		var url_json_promotores = "https://private-5b99d-tradeplace.apiary-mock.com/promotor";
@@ -139,8 +146,18 @@ function ListarPromotores(){
 		});
 	});
 }
+
+
+
+
 /*deixa a variavel global para ser usada na centralização do mapa*/
-var latlngTratada;
+var latlngTratada_promotor;
+/* Deixa a posicao init global para ser usado na filtragem dos mercadls */
+var posicaoinit = [];
+
+
+
+
 function pegaClickSelecao(event) {
 	$(".promotor-selecionado").slideToggle(300);
 	/*fazer a formatação para ficar melhor apresentavel o promotor e a empresa*/
@@ -149,12 +166,54 @@ function pegaClickSelecao(event) {
 	/*pega o id do promotor*/
 	var id_promotor_selecionado = $(".dados-promotor-selecionado .id-promotor").text();
 	/*chama a funcão de filtro*/
-	latlngTratada = devolveLatLng(id_promotor_selecionado);
-	console.log(latlngTratada.latitude);
-	console.log(latlngTratada.longitude);
-	centroMapRenderize(latlngTratada.latitude, latlngTratada.longitude, promotores[id_promotor_selecionado].nome);
+	latlngTratada_promotor = devolveLatLng(id_promotor_selecionado);
+	console.log(latlngTratada_promotor.latitude);
+	console.log(latlngTratada_promotor.longitude);
+	centroMapRenderize(latlngTratada_promotor.latitude, latlngTratada_promotor.longitude, promotores[id_promotor_selecionado].nome);
+
+	/*coloca a posicao inicial do promotor para a comparação de rotas no raio*/
+	posicaoinit = {
+		posicao : {
+			latitude : latlngTratada_promotor.latitude,
+			longitude: latlngTratada_promotor.longitude
+		}
+	}
+
 }
 
+
+function ListarMercados(raio) {
+	ajaxindicatorstart('Aguarde');
+	$.getJSON(url_server, function (data) {
+		for (var i = 0; i < data.length; i++) {
+			/*seta a posição do mercado para comparar o raio*/
+			var posicaoMercado = {
+				posicao : {
+					latitude : data[i].localizacao.latitude,
+					longitude: data[i].localizacao.longitude
+				}
+			}
+			/*chama a funcao que mede a distancia entre mercado e promotor*/
+			var distanciaPromotorMercado = positionsreturn(posicaoinit.posicao, posicaoMercado.posicao);
+			console.log(distanciaPromotorMercado);
+			if(distanciaPromotorMercado < raio){
+				/* Monta o layout dos mercados do raio */
+				var linhaMercado = '<div class="linha-mercados">'
+				+'<span>'+data[i].id + '</span> - '
+				+ data[i].nome
+				+ '</div>';
+				$(".lista-dados").append(linhaMercado);
+			}
+		}
+		ajaxindicatorstop()
+	})
+	.fail(function() { //fail,always,error
+		$.MessageBox({
+			customClass: "custom_messagebox",
+			message: "Ocorreu um erro, tente novamente!"
+		});
+	});
+}
 
 
 function centroMapRenderize(lat, long, nome){
@@ -165,13 +224,37 @@ function centroMapRenderize(lat, long, nome){
 	};
   		// map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-	var marker = new google.maps.Marker({
-		map: map,
-		position: new google.maps.LatLng(lat, long),
-		title: nome
-	});
+  		var marker = new google.maps.Marker({
+  			map: map,
+  			position: new google.maps.LatLng(lat, long),
+  			title: nome
+  		});
+  		map.setOptions(mapOptions);
+  	}
 
 
-	  map.setOptions(mapOptions);
-
+  	/*Funcao que mede a distancia entre 2 pontos*/
+// Objeto para calcular a distancia entre dois pontos
+// Adaptado dessa formula http://stackoverflow.com/questions/27928/how-do-i-calculate-distance-between-two-latitude-longitude-points
+function positionsreturn( pontoInicial, pontoFinal){
+	var R = 6371; // Radio da Terra
+	var dLat = this.graus2Radianos( pontoFinal.latitude - pontoInicial.latitude );
+	var dLon = this.graus2Radianos( pontoFinal.longitude - pontoInicial.longitude );
+	var a = Math.sin( dLat/2 ) * Math.sin( dLat/2 ) + Math.cos( this.graus2Radianos( pontoInicial.latitude ) ) * Math.cos( this.graus2Radianos( pontoFinal.latitude ) ) * Math.sin( dLon/2 ) * Math.sin( dLon/2 );
+	var c = 2 * Math.atan2( Math.sqrt( a ), Math.sqrt( 1-a ) );
+	var d = R * c;
+	return d;
 }
+function graus2Radianos( graus ){
+	return graus * ( Math.PI/180 )
+}
+
+
+
+
+
+// function verificaMercadosRaio(latlongPromotor, raio, p){
+
+// 	positionsreturn(posicaoinit.posicao, posicoesfinal.posicao);
+
+// }
