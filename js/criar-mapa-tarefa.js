@@ -179,7 +179,12 @@ function pegaClickSelecao(event) {
 		}
 	}
 
+	/*Ativar escolha de raio e lista de mercados e retira o aviso */
+	$(".container-mercado").slideToggle(300);
+	$(".avisoRaio").slideToggle(300);
+
 }
+
 
 
 function ListarMercados(raio) {
@@ -195,8 +200,8 @@ function ListarMercados(raio) {
 			}
 			/*chama a funcao que mede a distancia entre mercado e promotor*/
 			var distanciaPromotorMercado = positionsreturn(posicaoinit.posicao, posicaoMercado.posicao);
-			console.log(distanciaPromotorMercado);
-			if(distanciaPromotorMercado < raio){
+			/*Faz a verificação dos mercados por o raio*/
+			if(distanciaPromotorMercado <= raio){
 				/* Monta o layout dos mercados do raio */
 				var linhaMercado = '<div class="linha-mercados">'
 				+'<span>'+data[i].id + '</span> - '
@@ -215,7 +220,7 @@ function ListarMercados(raio) {
 	});
 }
 
-
+/*Centraliza o Mapa do Promotor*/
 function centroMapRenderize(lat, long, nome){
 	mapOptions = {
 		center: new google.maps.LatLng(lat, long),
@@ -233,7 +238,7 @@ function centroMapRenderize(lat, long, nome){
   	}
 
 
-  	/*Funcao que mede a distancia entre 2 pontos*/
+/*Funcao que mede a distancia entre 2 pontos*/
 // Objeto para calcular a distancia entre dois pontos
 // Adaptado dessa formula http://stackoverflow.com/questions/27928/how-do-i-calculate-distance-between-two-latitude-longitude-points
 function positionsreturn( pontoInicial, pontoFinal){
@@ -250,11 +255,3 @@ function graus2Radianos( graus ){
 }
 
 
-
-
-
-// function verificaMercadosRaio(latlongPromotor, raio, p){
-
-// 	positionsreturn(posicaoinit.posicao, posicoesfinal.posicao);
-
-// }
