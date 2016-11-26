@@ -117,7 +117,7 @@ function createMarker(latlng, nome, morada1, morada2, codPostal){
 
 /*variavel global para armazenar os promotores vindos do json*/
 var promotores = [];
-/*faz o filtro para pegar a latitude e longitude do cara clicado */
+/*faz o filtro para pegar a latitude e longitude do promotor clicado */
 function devolveLatLng(id){
 	var latlong = {};
 	latlong.latitude = promotores[id].localizacao.latitude;
@@ -143,7 +143,7 @@ function ListarPromotores(){
 var latlngTratada;
 function pegaClickSelecao(event) {
 	$(".promotor-selecionado").slideToggle(300);
-	/*fazer a formatação para ficar melhor apresentavel o cara e a empresa*/
+	/*fazer a formatação para ficar melhor apresentavel o promotor e a empresa*/
 	$(".promotor-selecionado .dados-promotor-selecionado").html($(this).html());
 	$(".lista-todos-promotores").slideToggle(300);
 	/*pega o id do promotor*/
@@ -152,17 +152,26 @@ function pegaClickSelecao(event) {
 	latlngTratada = devolveLatLng(id_promotor_selecionado);
 	console.log(latlngTratada.latitude);
 	console.log(latlngTratada.longitude);
-	centroMapRenderize(latlngTratada.latitude, latlngTratada.longitude);
+	centroMapRenderize(latlngTratada.latitude, latlngTratada.longitude, promotores[id_promotor_selecionado].nome);
 }
 
 
 
-function centroMapRenderize(lat, long){
-	console.log("adas");
+function centroMapRenderize(lat, long, nome){
 	mapOptions = {
 		center: new google.maps.LatLng(lat, long),
 		zoom: 16,
 		mapTypeId: 'roadmap'
 	};
+  		// map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+	var marker = new google.maps.Marker({
+		map: map,
+		position: new google.maps.LatLng(lat, long),
+		title: nome
+	});
+
+
 	  map.setOptions(mapOptions);
+
 }

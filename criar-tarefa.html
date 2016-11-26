@@ -9,68 +9,10 @@
 	<link rel="stylesheet" href="css/style.css" />
 	<script type="text/javascript" src="auto/jquery-ui.custom.min.js"></script>
 	<link href="auto/estilo.css" type="text/css" rel="stylesheet" />
+	<link href="css/criar-tarefa.css" type="text/css" rel="stylesheet" />
 
 	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAF9SwzxHRiH5n3RGs2-CVha2GEhXVFFqw&amp;sensor=false"></script>
 	<script type="text/javascript" src="js/criar-mapa-tarefa.js"></script>
-	<style>
-	.container-map{
-		    width: 900px;
-		}
-		.promotor-selecionado {
-			background: #fff;
-			color: #505050;
-			padding: 5px;
-			border: solid 1px #d4d4d4;
-			box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.19);
-			border-radius: 4px;
-			font-size: 14px;
-			display: none;
-			width: calc(100% - 21px);
-			border-left: 3px solid #23a599;
-		}
-		.promotor-selecionado em{
-			float: right;
-		}
-		.lista-todos-promotores {
-			padding: 8px;
-			background: #ffffff;
-			border: solid 1px #eee;
-			box-shadow: inset 0px 0px 8px #e6e6e6;
-			font-size: 14px;
-
-		}
-		.lista-promotor {
-			width: 500px;
-			padding: 5px;
-		}
-		.nome-promo-lista span {
-			float: right;
-		}
-		.nome-promo-lista {
-			background: linear-gradient(#fff, #f9f9f9);
-			padding: 3px 10px;
-			cursor: pointer;
-			margin-bottom: 5px;
-			transition:ease 100ms all;
-			border-radius: 3px;
-			border-left: 3px solid transparent;
-		}
-		.nome-promo-lista:hover {
-			border-color: #23a599;
-			background: #eee;
-		}
-		.id-promotor {
-			display: inline-block;
-			font-size: 11px;
-			margin-right: 5px;
-			background: #eee;
-			padding: 2px 7px;
-			border-radius: 50%;
-		}
-		.dados-promotor-selecionado {
-			display: inline-block;
-		}
-	</style>
 </head>
 <body>
 	<header>
@@ -96,16 +38,18 @@
 		<ul>
 			<li><a href="index.html"><i class="fa fa-map" aria-hidden="true"></i> <span>Home</span></a></li>
 			<li class="active"><a href="criar-tarefa.html"><i class="fa fa-map" aria-hidden="true"></i> <span>Criar Tarefa</span></a></li>
-			<li><i class="fa fa-blind" aria-hidden="true"></i> <span>Cadastros</span>
+			<li class="aside-cad"><i class="fa fa-blind" aria-hidden="true"></i> <span>Cadastros</span>
 				<ul class="aside-cad">
-					<li class="opac-li"><a href="promotor.html" alt="Promotor">Promotor</a></li>
-					<li class="opac-li"><a href="mercado.html" alt="Mercado">Mercado</a></li>
-					<li class="opac-li active"><a href="usuario.html" alt="Usuário">Usuário</a></li>
+					<li><a href="promotor.html" alt="Promotor">Promotor</a></li>
+					<li><a href="mercado.html" alt="Mercado">Mercado</a></li>
+					<li><a href="usuario.html" alt="Usuário">Usuário</a></li>
+					<li><a href="empresa.html" alt="Empresa">Empresa</a></li>
 				</ul>
 			</li>
 			<li><a href="promotores.html"><i class="fa fa-universal-access" aria-hidden="true"></i> <span>Promotores</span></a></li>
 			<li><a href="mercados.html"><i class="fa fa-universal-access" aria-hidden="true"></i> <span>Mercados</span></a></li>
 			<li><a href="usuarios.html"><i class="fa fa-universal-access" aria-hidden="true"></i> <span>Usuarios</span></a></li>
+			<li><a href="empresas.html"><i class="fa fa-universal-access" aria-hidden="true"></i> <span>Empresas</span></a></li>
 		</ul>
 		<span class="minima"><i class="fa fa-align-justify" aria-hidden="true"></i></span>
 	</aside>
@@ -120,7 +64,6 @@
 				<div class="lista-promotor">
 					Promotor
 					<input type="text" class="nome-promotor" placeholder="Pesquisar nome do promotor" />
-
 					<div class="promotor-selecionado">
 						<div class="dados-promotor-selecionado">
 
@@ -130,12 +73,13 @@
 					<div class="lista-todos-promotores">
 						<!-- Dados que vem do json - criar-mapa-tarefa.js -->
 					</div>
-				</div>
 				<div class="container-map">
-				<input type="button" class="btn-escolher-mercados" onclick="centroMapRenderize();">
+				<!-- <input type="button" class="btn-escolher-mercados" value="Escolher Promotor" onclick="centroMapRenderize();"> -->
 					<h2>Mercados Por Usuario</h2>
 					<div id="map-canvas"></div>
 				</div>
+				</div>
+
 				<input type="submit" value="Enviar" name="btnEnviar" />
 			</form>
 		</div>
