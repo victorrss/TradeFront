@@ -7,13 +7,12 @@
 	<link rel="stylesheet" href="fontaw/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="css/style.css" />
 	<link rel="stylesheet" href="css/messagebox.css" />
+	<script type="text/javascript" src="js/messagebox.min.js"></script>
 	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAF9SwzxHRiH5n3RGs2-CVha2GEhXVFFqw&amp;sensor=false"></script>
 	<script type="text/javascript" src="js/load.js"></script>
-	<script type="text/javascript" src="js/messagebox.min.js"></script>
 	<script type="text/javascript" src="auto/mapa.js"></script>
 	<script type="text/javascript" src="auto/jquery-ui.custom.min.js"></script>
 	<link href="auto/estilo.css" type="text/css" rel="stylesheet" />
-
 	<script type="text/javascript" src="js/rest/mercado.js"></script>
 </head>
 <body>
@@ -108,25 +107,25 @@
 	</footer>
 	<script>
 	$('#loadingDiv').hide()  // hide it initially
-    .ajaxStart(function() {
-        $(this).show();
-    })
-    .ajaxStop(function() {
-        $(this).hide();
-    });
+	.ajaxStart(function() {
+		$(this).show();
+	})
+	.ajaxStop(function() {
+		$(this).hide();
+	});
 
-		$('.minima').click(function(event) {
-			$('aside ul li span').toggleClass('dnon');
-			$('aside').toggleClass('min-aside');
-		});
-		$('aside ul li.aside-cad').click(function(event) {
-			$('aside ul li ul.aside-cad').toggleClass('abre-aside');
-			$('aside ul li ul li').toggleClass('opac-li');
-		});
-		$('.user i').click(function(event) {
-			$('.configuracoes-user').toggleClass('configuracoes-user-show');
-			//$('.configuracoes-user ul').toggleClass('config-user-show');
-		});
+	$('.minima').click(function(event) {
+		$('aside ul li span').toggleClass('dnon');
+		$('aside').toggleClass('min-aside');
+	});
+	$('aside ul li.aside-cad').click(function(event) {
+		$('aside ul li ul.aside-cad').toggleClass('abre-aside');
+		$('aside ul li ul li').toggleClass('opac-li');
+	});
+	$('.user i').click(function(event) {
+		$('.configuracoes-user').toggleClass('configuracoes-user-show');
+		//$('.configuracoes-user ul').toggleClass('config-user-show');
+	});
 	</script>
 </body>
 </html>

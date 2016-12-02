@@ -24,19 +24,20 @@ $(document).ready(function ($) {
 
 function CallbackListarPorID(data) {
 	ajaxindicatorstop()
-		mercado = {};
-		mercado.nome = data.nome;
-		mercado.endereco = data.endereco;
-		mercado.razaoSocial = data.razaoSocial;
-		mercado.latitude = data.localizacao.latitude;
-		mercado.longitude = data.localizacao.longitude;
+		mercado = data;
+	console.log(mercado);
+		// mercado.nome = data.nome;
+		// mercado.endereco = data.endereco;
+		// mercado.razaoSocial = data.razaoSocial;
+		// mercado.latitude = data.localizacao.latitude;
+		// mercado.longitude = data.localizacao.longitude;
 		$('#nome').val(mercado.nome);
 		$('#razaoSocial').val(mercado.razaoSocial);
 		$('#userEndereco').val(mercado.endereco);
 		$('#txtEndereco').val(mercado.endereco);
-		$('#txtLatitude').val(mercado.latitude);
-		$('#txtLongitude').val(mercado.longitude);
-		setEditPointMap(mercado.latitude,mercado.longitude);
+		$('#txtLatitude').val(mercado.localizacao.latitude);
+		$('#txtLongitude').val(mercado.localizacao.longitude);
+		setEditPointMap(mercado.localizacao.latitude,mercado.localizacao.longitude);
 		clickMostrarMapa();
 		//$("#btnEndereco").click();
   return mercado;
@@ -102,12 +103,13 @@ function RESTlistar() {
 
 function RESTinserir(nome, razaoSocial, endereco, lat, lng) {
 	//console.log(nome + ' ' + razaoSocial + ' ' + endereco + ' ' + lat + ' ' + lng);
+//	console.log('{"endereco": "' + endereco + '","nome": "'+ nome + '","razaoSocial": "' + razaoSocial + '", "localizacao": {"latitude": ' + lat +  ',"longitude": ' + lng + '}}');
 	return $.ajax({
 		//async: false,
 		global: true,
 		type: 'POST',
 		url: url,
-		data: "{'endereco': '" + endereco + "','nome':'" + nome + "','razaoSocial': '" + razaoSocial + "', 'localizacao': {'latitude': '" + lat + "','longitude': '" + lng + "'}}",
+		data: '{"endereco": "' + endereco + '","nome": "'+ nome + '","razaoSocial": "' + razaoSocial + '", "localizacao": {"latitude": ' + lat +  ',"longitude": ' + lng + '}}',
 		contentType: "application/json; charset=UTF-8",
 		error: function (jqXHR, textStatus, errorThrown) {
 			/*if(textStatus==="timeout") {
@@ -128,7 +130,7 @@ function RESTeditar(id, nome, razaoSocial, endereco, lat, lng) {
 		global: true,
 		type: 'PUT',
 		url: url+'/'+id,
-		data: '{"endereco": "' + endereco + '","nome":"' + nome + '","razaoSocial": "' + razaoSocial + '", "localizacao": {"latitude": "' + lat + '","longitude": "' + lng + '"}}',
+		data: '{"endereco": "' + endereco + '","nome": "'+ nome + '","razaoSocial": "' + razaoSocial + '", "localizacao": {"latitude": ' + lat +  ',"longitude": ' + lng + '}}',
 		contentType: "application/json; charset=UTF-8",
 		error: function (jqXHR, textStatus, errorThrown) {
 			$.MessageBox({

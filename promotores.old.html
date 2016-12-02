@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Listas - Promotores</title>
+	<meta charset="utf-8" lang="pt-BR" />
+	<script src="auto/jquery.min.js"></script>
+	<link rel="stylesheet" href="fontaw/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<script type="text/javascript" src="js/rest/promotores.js"></script>
+	<script type="text/javascript" src="auto/jquery-ui.custom.min.js"></script>
+	<link href="auto/estilo.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+	<header>
+		<div class="topo">
+			<div class="logo">
+				<img src="img/logo.png" alt="" />
+			</div>
+			<div class="top-direita">
+				<a href="##">Sair <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+			</div>
+		</div>
+	</header>
+	<aside>
+		<div class="user">
+			Usuario: <span>Gilberto Gomes</span>  <i class="fa fa-cog" aria-hidden="true"></i>
+			<div class="configuracoes-user">
+				<ul>
+					<li><a href="" title="">Alterar Senha</a></li>
+					<li><a href="#" title="">Alterar informações da conta</a></li>
+				</ul>
+			</div>
+		</div>
+		<ul>
+			<li><a href="index.html"><i class="fa fa-map" aria-hidden="true"></i> <span>Home</span></a></li>
+			<li><a href="criar-tarefa.html"><i class="fa fa-map" aria-hidden="true"></i> <span>Criar Tarefa</span></a></li>
+			<li class="aside-cad"><i class="fa fa-blind" aria-hidden="true"></i> <span>Cadastros</span>
+				<ul class="aside-cad">
+					<li><a href="promotor.html" alt="Promotor">Promotor</a></li>
+					<li><a href="mercado.html" alt="Mercado">Mercado</a></li>
+					<li><a href="usuario.html" alt="Usuário">Usuário</a></li>
+					<li><a href="empresa.html" alt="Usuário">Empresa</a></li>
+				</ul>
+			</li>
+			<li class="active"><a href="promotores.html"><i class="fa fa-universal-access" aria-hidden="true"></i> <span>Promotores</span></a></li>
+			<li><a href="mercados.html"><i class="fa fa-universal-access" aria-hidden="true"></i> <span>Mercados</span></a></li>
+			<li><a href="usuarios.html"><i class="fa fa-universal-access" aria-hidden="true"></i> <span>Usuarios</span></a></li>
+			<li><a href="empresas.html"><i class="fa fa-universal-access" aria-hidden="true"></i> <span>Empresas</span></a></li>
+		</ul>
+		<span class="minima"><i class="fa fa-align-justify" aria-hidden="true"></i></span>
+	</aside>
+	<div class="title-page">
+		<div class="title">
+			<h1>Promotores</h1>
+			<span class="cadastrar-mais"><a href="promotor.html" alt="Cadastrar mais promotores"> + </a></span>
+		</div>
+	</div>
+	<div class="conteudo">
+		<div class="lista-container">
+			<div class="lista-title table">
+					<div class="td lista-40">
+						<label>NOME</label>
+						<input type="text" name="pesquisar-nome"/>
+					</div>
+					<div class="td space"></div>
+					<div class="td">
+						<label>LOGIN</label>
+						<input type="text" name="pesquisar-login"/>
+					</div>
+					<div class="td space"></div>
+					<!-- <div class="td">
+						<label>ULTIMA INTERAÇÃO</label>
+						<input type="text" name="pesquisar-interacao"/>
+					</div> -->
+					<div class="td space"></div>
+					<div class="td">
+						<label>EMPRESA</label>
+						<input type="text" name="pesquisar-empresa"/>
+					</div>
+					<div class="td space"></div>
+					<div class="td icons-edit">
+						<!-- <a href="editar-promotor.html?id=1&tipo=promotor"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+						<a href="del"><i class="fa fa-trash" aria-hidden="true"></i></a> -->
+					</div>
+			</div>
+			<section class="lista-dados">
+				<div class="linha-dados table">
+					<div class="td lista-40">
+						Nome
+					</div>
+					<div class="td space"></div>
+					<div class="td">
+						Login
+					</div>
+					<div class="td space"></div>
+					<!-- <div class="td">
+						Ultima Interação
+					</div>
+					<div class="td space"></div> -->
+					<div class="td">
+						Empresa
+					</div>
+					<div class="td space"></div>
+					<div class="td icons-edit">
+						<a href="editar-promotor.html?id=1&tipo=promotor"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+						<a href="del"><i class="fa fa-trash" aria-hidden="true"></i></a>
+					</div>
+				</div>
+
+			</section>
+
+		</div>
+
+
+	</div>
+
+	<footer>
+		<!-- footer -->
+	</footer>
+	<script>
+
+		$('.minima').click(function(event) {
+			$('aside ul li span').toggleClass('dnon');
+			$('aside').toggleClass('min-aside');
+		});
+		$('aside ul li.aside-cad').click(function(event) {
+			$('aside ul li ul.aside-cad').toggleClass('abre-aside');
+			$('aside ul li ul li').toggleClass('opac-li');
+		});
+		$('.user i').click(function(event) {
+			$('.configuracoes-user').toggleClass('configuracoes-user-show');
+			//$('.configuracoes-user ul').toggleClass('config-user-show');
+		});
+	</script>
+</body>
+</html>

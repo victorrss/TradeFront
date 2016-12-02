@@ -6,10 +6,14 @@
 	<script src="auto/jquery.min.js"></script>
 	<link rel="stylesheet" href="fontaw/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/messagebox.css" />
+	<script type="text/javascript" src="js/messagebox.min.js"></script>
 	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAF9SwzxHRiH5n3RGs2-CVha2GEhXVFFqw&amp;sensor=false"></script>
+	<script type="text/javascript" src="js/load.js"></script>
 	<script type="text/javascript" src="auto/mapa.js"></script>
 	<script type="text/javascript" src="auto/jquery-ui.custom.min.js"></script>
 	<link href="auto/estilo.css" type="text/css" rel="stylesheet" />
+	<script type="text/javascript" src="js/rest/promotor.js"></script>
 </head>
 <body>
 	<header>
@@ -59,142 +63,147 @@
 		<div class="container-cadastros">
 			<form method="post" action="index.html" class="form-cad-user">
 				<div class="table">
-					<div class="td">
-						<label>Nome</label>
-						<input type="text" id="nome" name="nome" placeholder="Ex.: Expedito Ribeiro Cedro" required/>
-					</div>
-					<div class="td space"></div>
-					<div class="td">
-						<label>Celular</label>
-						<input type="text" id="cel" name="cel" placeholder="( ## ) _____-____" required/>
-					</div>
-					<div class="td space"></div>
-					<div class="td">
-						<label>Empresa</label>
-						<select id="empresa" name="empresa">
-							<option value="" selected disabled>Selecione</option>
-							<option value="Sadia">Sadia</option>
-							<option value="Perdigão">Perdigão</option>
-							<option value="Chapecó">Chapecó</option>
-							<option value="Marabraz">Marabraz</option>
-						</select>
-					</div>
+					<!-- <div class="td">
+					<label>Celular</label>
+					<input type="text" id="cel" name="cel" placeholder="( ## ) _____-____" required/>
+				</div>
+				<div class="td space"></div> -->
+				<div class="td">
+					<label>Empresa</label>
+
+					<select id="empresa" name="empresa">
+						<option value="" selected disabled>Selecione</option>
+					</select>
 				</div>
 
-				<div class="table">
-					<div class="td nascimento-date">
-						<label>Data de Nascimento</label><br />
-						<input type="date" id="dt-nasc" name="idade_date" placeholder="23 Anos" />
-					</div>
-					<div class="td space"></div>
-					<div class="td">
-						<label>Login</label>
-						<input type="text" id="login" name="login" placeholder="ExpeditoCedro" required/>
-					</div>
-					<div class="td space"></div>
-					<div class="td">
-						<label>Senha</label>
-						<input type="text" id="senha" name="senha" placeholder="promout_123@" required/>
-					</div>
-				</div>
-				<div class="table">
-					<div class="td">
-						<label>Endereço</label>
-						<input type="text" name="endereco" id="endereco" required/>
-					</div>
-					<div class="td space"></div>
-					<div class="td cep">
-						<label>CEP</label>
-						<input type="text" name="cep" id="cep" required/>
-					</div>
-				</div>
-				<div class="table">
-					<div class="td botao-mostrar-site">
-						<label></label><br /	>
-						<input type="button" id="btnEndereco" name="btnEndereco" value="Mostrar no mapa" />
-					</div>
-					<div class="td space"></div>
-					<div class="td">
-						<label>Endereço</label>
-						<input disabled type="text" id="txtEndereco" name="txtEndereco" placeholder="Rua Avares de Andrade, 265 - São Paulo" />
-					</div>
+			</div>
 
+			<div class="table">
+				<div class="td">
+					<label>Nome</label>
+					<input type="text" id="nome" name="nome" placeholder="Ex.: Expedito Ribeiro Cedro" required/>
 				</div>
-				<div id="mapa"></div>
-				<input type="submit" value="Enviar" name="btnEnviar" />
-				<input type="hidden" id="txtLatitude" name="txtLatitude" />
-				<input type="hidden" id="txtLongitude" name="txtLongitude" />
-			</form>
-
+				<div class="td space"></div>
+				<!-- <div class="td nascimento-date">
+				<label>Data de Nascimento</label><br />
+				<input type="date" id="dt-nasc" name="idade_date" placeholder="23 Anos" />
+			</div>
+			<div class="td space"></div> -->
+			<div class="td">
+				<label>Login</label>
+				<input type="text" id="login" name="login" placeholder="ExpeditoCedro" required/>
+			</div>
+			<div class="td space"></div>
+			<div class="td">
+				<label>Senha</label>
+				<input type="text" id="senha" name="senha" placeholder="promout_123@" required/>
+			</div>
+			<div class="td space"></div>
+			<div class="td">
+				<label>Idade</label>
+				<input type="text" id="idade" name="idade" placeholder="" />
+			</div>
 		</div>
+		<div class="table">
+			<div class="td">
+				<label>Endereço</label>
+				<input type="text" name="userEndereco" id="userEndereco" required/>
+			</div>
+			<!--
+				<div class="td space"></div>
+				<div class="td cep">
+				<label>CEP</label>
+				<input type="text" name="cep" id="cep" required/>
+			</div>
+	-->
 	</div>
+	<div class="table">
+		<div class="td botao-mostrar-site">
+			<label></label><br /	>
+			<input type="button" id="btnEndereco" onclick="clickMostrarMapa()" name="btnEndereco" value="Mostrar no mapa" />
+		</div>
+		<div class="td space"></div>
+		<div class="td">
+			<label>Endereço</label>
+			<input disabled type="text" id="txtEndereco" name="txtEndereco" placeholder="Rua Avares de Andrade, 265 - São Paulo" />
+		</div>
 
-	<footer>
-		<!-- footer -->
-	</footer>
-	<script>
-		$('.botao-mostrar-site input').click(function(event) {
+	</div>
+	<div id="mapa"></div>
+	<input type="button" onclick="inserir()" value="Enviar" name="btnEnviar" />
+	<input type="hidden" id="txtLatitude" name="txtLatitude" />
+	<input type="hidden" id="txtLongitude" name="txtLongitude" />
+</form>
 
-			var tipo_logradouro = $('#tipo_logradouro').val()
-			var endereco = $('#endereco').val();
-			if(endereco == null && endereco == undefined){
-				endereco = " ";
-			}
-			var cep = $('#cep').val();
-			var logradouro_completo = endereco + ' - ' +  cep;
-			$('#txtEndereco').val(logradouro_completo);
-		});
-		$(".form-cad-user").submit(function(event) {
-		event.preventDefault();
-		/*NESSAS VARIAVEIS ESTÂO OS DADOS DA LATITUDE LONGITUDE E O TEXTO DIGITADO*/
-		var nome = $("#nome").val();
-		var cel = $("#cel").val();
-		var empresa = $('#empresa').val();
-		var dt_nasc = $('#dt_nasc').val();
+</div>
+</div>
 
-		var login = $('#login').val();
-		var senha = $('#senha').val();
+<footer>
+	<!-- footer -->
+</footer>
+<script>
+$('.botao-mostrar-site input').click(function(event) {
 
-		var latitude = $("#txtLatitude").val();
-		var longitude = $("#txtLongitude").val();
+	var tipo_logradouro = $('#tipo_logradouro').val()
+	var endereco = $('#endereco').val();
+	if(endereco == null && endereco == undefined){
+		endereco = " ";
+	}
+	var cep = $('#cep').val();
+	var logradouro_completo = endereco + ' - ' +  cep;
+	$('#txtEndereco').val(logradouro_completo);
+});
+// $(".form-cad-user").submit(function(event) {
+// 	event.preventDefault();
+// 	/*NESSAS VARIAVEIS ESTÂO OS DADOS DA LATITUDE LONGITUDE E O TEXTO DIGITADO*/
+// 	var nome = $("#nome").val();
+// 	var cel = $("#cel").val();
+// 	var empresa = $('#empresa').val();
+// 	var dt_nasc = $('#dt_nasc').val();
+//
+// 	var login = $('#login').val();
+// 	var senha = $('#senha').val();
+//
+// 	var latitude = $("#txtLatitude").val();
+// 	var longitude = $("#txtLongitude").val();
+//
+// 	var cep = $('#cep').val();
+// 	var endereco = $('#endereco').val();
+// 	var endereco_google = $('#txtEndereco').val();
+//
+//
+//
+// 	alert("Nome: " + nome  +
+// 	"\nCel: " + cel  +
+// 	"\nEmpresa: " + empresa  +
+// 	"\nData de Nascimento: " + dt_nasc  +
+//
+// 	"\nLogin: " + login  +
+// 	"\nSenha: " + senha  +
+//
+// 	"\n Endereco: " + endereco +
+// 	" | Endereco_google: " + endereco_google +
+// 	" | cep: " + cep +
+//
+// 	"\nLatitude: " + latitude +
+// 	"\nLongitude: " + longitude);
+//
+//
+// });
 
-		var cep = $('#cep').val();
-		var endereco = $('#endereco').val();
-		var endereco_google = $('#txtEndereco').val();
 
-
-
-		alert("Nome: " + nome  +
-		      "\nCel: " + cel  +
-		      "\nEmpresa: " + empresa  +
-		      "\nData de Nascimento: " + dt_nasc  +
-
-		      "\nLogin: " + login  +
-		      "\nSenha: " + senha  +
-
-		      "\n Endereco: " + endereco +
-		      " | Endereco_google: " + endereco_google +
-		      " | cep: " + cep +
-
-		      "\nLatitude: " + latitude +
-		      "\nLongitude: " + longitude);
-
-
-	});
-
-
-		$('.minima').click(function(event) {
-			$('aside ul li span').toggleClass('dnon');
-			$('aside').toggleClass('min-aside');
-		});
-		$('aside ul li.aside-cad').click(function(event) {
-			$('aside ul li ul.aside-cad').toggleClass('abre-aside');
-			$('aside ul li ul li').toggleClass('opac-li');
-		});
-		$('.user i').click(function(event) {
-			$('.configuracoes-user').toggleClass('configuracoes-user-show');
-			//$('.configuracoes-user ul').toggleClass('config-user-show');
-		});
-	</script>
+$('.minima').click(function(event) {
+	$('aside ul li span').toggleClass('dnon');
+	$('aside').toggleClass('min-aside');
+});
+$('aside ul li.aside-cad').click(function(event) {
+	$('aside ul li ul.aside-cad').toggleClass('abre-aside');
+	$('aside ul li ul li').toggleClass('opac-li');
+});
+$('.user i').click(function(event) {
+	$('.configuracoes-user').toggleClass('configuracoes-user-show');
+	//$('.configuracoes-user ul').toggleClass('config-user-show');
+});
+</script>
 </body>
 </html>
