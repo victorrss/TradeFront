@@ -19,28 +19,28 @@ $(document).ready(function ($) {
 
 
 function CallbackListarPorID(data) {
-	ajaxindicatorstop()
-		empresa = {};
-		empresa.nome = data.nome;
-		empresa.razaoSocial = data.razaoSocial;
-		empresa.cnpj = data.cnpj;
-		$('#nome').val(empresa.nome);
-		$('#razaoSocial').val(empresa.razaoSocial);
-		$('#cnpj').val(empresa.cnpj);
-  return empresa;
+	ajaxindicatorstop();
+	empresa = {};
+	empresa.nome = data.nome;
+	empresa.razaoSocial = data.razaoSocial;
+	empresa.cnpj = data.cnpj;
+	$('#nome').val(empresa.nome);
+	$('#razaoSocial').val(empresa.razaoSocial);
+	$('#cnpj').val(empresa.cnpj);
+	return empresa;
 }
 
 function RESTlistarPorID(id){
-    var result;
-		ajaxindicatorstart('Aguarde');
-    	$.getJSON(url+'/'+id,  CallbackListarPorID)
-			.fail(function() {
-				ajaxindicatorstop() //fail,always,error
-				$.MessageBox({
-					customClass: "custom_messagebox",
-					message: "Ocorreu um erro, tente novamente!"
-				});
-			});
+	var result;
+	ajaxindicatorstart('Aguarde');
+	$.getJSON(url+'/'+id,  CallbackListarPorID)
+	.fail(function() {
+		ajaxindicatorstop() //fail,always,error
+		$.MessageBox({
+			customClass: "custom_messagebox",
+			message: "Ocorreu um erro, tente novamente!"
+		});
+	});
 }
 
 function RESTdeletar(id) {
@@ -60,11 +60,26 @@ function RESTdeletar(id) {
 function RESTlistar() {
 	ajaxindicatorstart('Aguarde');
 	$.getJSON(url, function (data) {
-		empresa = data;
-		return empresa;
+		for (var i = 0; i < data.length; i++) {
+
+			var linhaEmpresa =
+			'<div class="linha-dados table" id="listEmpresa">'
+			+'<div class="td lista-40">	'+data[i].nome+'						</div>'
+			+'<div class="td space"></div>'
+			+'<div class="td">					'+data[i].razaoSocial+'						</div>'
+			+'<div class="td space"></div>'
+			+'<div class="td">					'+data[i].cnpj+'					</div>'
+			+'<div class="td space"></div>'
+			+'<div class="td icons-edit">'
+			+'<a href="editar-empresa.html?id='+data[i].id+'"><i class="fa fa-pencil" aria-hidden="true"></i></a>'
+			+'<a href="javascript: excluir('+data[i].id+')"><i class="fa fa-trash" aria-hidden="true"></i></a>'
+			+'</div>'
+			+'</div>'
+			console.log(linhaEmpresa);
+			$(".lista-dados").append(linhaEmpresa);
 		}
-		loadPaginacao()
-		ajaxindicatorstop()
+		loadPaginacao();
+		ajaxindicatorstop();
 	})
 	.fail(function() { //fail,always,error
 		$.MessageBox({
@@ -85,15 +100,15 @@ function RESTinserir(nome, razaoSocial, cnpj) {
 		contentType: "application/json; charset=UTF-8",
 		error: function (jqXHR, textStatus, errorThrown) {
 			/*if(textStatus==="timeout") {
-				  //do something on timeout
-			  }
-			  */
-			$.MessageBox({
-				customClass: "custom_messagebox",
-				message: "Não foi possível enviar sua requisição, o servidor retornou um erro. <br> Tente novamente!"
-			});
+			//do something on timeout
 		}
-	});
+		*/
+		$.MessageBox({
+			customClass: "custom_messagebox",
+			message: "Não foi possível enviar sua requisição, o servidor retornou um erro. <br> Tente novamente!"
+		});
+	}
+});
 }
 
 function RESTeditar(id, nome, razaoSocial, cnpj) {
@@ -119,32 +134,32 @@ function handleData(data, textStatus, jqXHR,acao) {
 	//console.log(JSON.stringify(jqXHR));
 
 	if (jqXHR.status == 201) {
-			$.MessageBox({
+		$.MessageBox({
 			customClass: "custom_messagebox",
 			message: "Cadastrado com sucesso!"
 		}).done(function(data, button){
-				location.reload(true);
-			});
+			location.reload(true);
+		});
 	}else if (jqXHR.status == 204) {
 		if (acao == 'editar') {
-				$.MessageBox({
+			$.MessageBox({
 				customClass: "custom_messagebox",
 				message: "Atualizado com sucesso!"
 			}).done(function(data, button){
-					window.location="empresas.html";
-				});
+				window.location="empresas.html";
+			});
 		}else	if (acao == 'excluir') {
-				$.MessageBox({
+			$.MessageBox({
 				customClass: "custom_messagebox",
 				message: "Excluido com sucesso!"
 			}).done(function(data, button){
-					location.reload(true);
-				});
+				location.reload(true);
+			});
 		}
 	}else {
-			$.MessageBox({
-				message: "Ocorreu um erro, tente novamente!"
-			});
+		$.MessageBox({
+			message: "Ocorreu um erro, tente novamente!"
+		});
 	}
 }
 
@@ -166,7 +181,7 @@ function excluir(id) {
 	}).done(function(){
 		RESTdeletar(id).done(function(data, textStatus, jqXHR) {
 			handleData(data, textStatus, jqXHR, 'excluir');
-	 	});
+		});
 	});
 }
 

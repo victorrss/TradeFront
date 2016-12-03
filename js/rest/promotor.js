@@ -113,7 +113,7 @@ function RESTlistar() {
 			console.log(linhaPromotor);
 			$(".lista-dados").append(linhaPromotor);
 		}
-		ajaxindicatorstop()
+		ajaxindicatorstop();
 	})
 	.fail(function() { //fail,always,error
 		$.MessageBox({
@@ -123,7 +123,7 @@ function RESTlistar() {
 	});
 }
 
-function RESTinserir(nome,login,senha,idade,empnome,emprazaoSocial,empcnpj, lat, lng) {
+function RESTinserir(nome,login,senha,idade,endereco,empnome,emprazaoSocial,empcnpj, lat, lng) {
 	console.log(nome + ' ' + razaoSocial + ' ' + endereco + ' ' + lat + ' ' + lng);
 	return $.ajax({
 		//async: false,
@@ -147,7 +147,7 @@ function RESTinserir(nome,login,senha,idade,empnome,emprazaoSocial,empcnpj, lat,
 });
 }
 
-function RESTeditar(id, nome,login,senha,idade,empnome,emprazaoSocial,empcnpj, lat, lng) {
+function RESTeditar(id,nome,login,senha,idade,endereco,empnome,emprazaoSocial,empcnpj, lat, lng) {
 	return $.ajax({
 		//async: false,
 		global: true,
@@ -176,7 +176,7 @@ function handleData(data, textStatus, jqXHR,acao) {
 			customClass: "custom_messagebox",
 			message: "Cadastrado com sucesso!"
 		}).done(function(data, button){
-			location.reload(true);
+				window.location.reload(true);
 		});
 	}else if (jqXHR.status == 204) {
 		if (acao == 'editar') {
@@ -224,6 +224,7 @@ function editar(id) {
 	login = $('#login').val();
 	senha = $('#senha').val();
 	idade = $('#idade').val();
+	endereco = $('#txtEndereco').val();
 	empresa = JSON.parse($('#empresa option:selected').attr('data-support'));
 	empnome = empresa[0];
 	emprazaoSocial = empresa[1];
@@ -231,7 +232,7 @@ function editar(id) {
 	lat = $('#txtLatitude').val();
 	lng = $('#txtLongitude').val();
 
-	RESTeditar(id,nome,login,senha,idade,empnome,emprazaoSocial,empcnpj, lat, lng).done(function(data, textStatus, jqXHR) {
+	RESTeditar(id,nome,login,senha,idade,endereco,empnome,emprazaoSocial,empcnpj, lat, lng).done(function(data, textStatus, jqXHR) {
 		handleData(data, textStatus, jqXHR, 'editar');
 	});
 }
@@ -239,7 +240,7 @@ function editar(id) {
 function inserir() {
 	if (validacaoForm() != true) { return; }
 	//console.log(nome + " - " + razaoSocial + " - " + endereco + " - " + lat + " - " + lng);
-	RESTinserir(nome,login,senha,idade,empnome,emprazaoSocial,empcnpj, lat, lng).done(handleData);
+	RESTinserir(nome,login,senha,idade,endereco,empnome,emprazaoSocial,empcnpj, lat, lng).done(handleData);
 }
 
 function clickMostrarMapa() {
@@ -267,6 +268,7 @@ function validacaoForm() {
 	login = $('#login').val();
 	senha = $('#senha').val();
 	idade = $('#idade').val();
+	endereco = $('#txtEndereco').val();
 	empresa = JSON.parse($('#empresa option:selected').attr('data-support'));
 	empnome = empresa[0];
 	emprazaoSocial = empresa[1];

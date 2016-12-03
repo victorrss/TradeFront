@@ -90,8 +90,8 @@ function RESTlistar() {
 				+ '</div>';
 			$(".lista-dados").append(linhaMercado);
 		}
-		loadPaginacao()
-		ajaxindicatorstop()
+		loadPaginacao();
+		ajaxindicatorstop();
 	})
 	.fail(function() { //fail,always,error
 		$.MessageBox({
