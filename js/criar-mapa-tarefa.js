@@ -118,12 +118,21 @@ function createMarker(latlng, nome, morada1, morada2, codPostal){
 /*variavel global para armazenar os promotores vindos do json*/
 var promotores = [];
 /*faz o filtro para pegar a latitude e longitude do promotor clicado */
-function devolveLatLng(id){
+function devolveLatLngName(id){
 	var latlong = {};
-	console.log(promotores);
-	latlong.latitude = promotores[id].localizacao.latitude;
-	latlong.longitude = promotores[id].localizacao.longitude;
+	var id_array;
+	for (var i = 0; i < promotores.length; i++) {
+		if(promotores[i].id == id){
+			latlong.latitude = promotores[i].localizacao.latitude;
+			latlong.longitude = promotores[i].localizacao.longitude;
+			latlong.nome = promotores[i].nome;
+			break;
+		}
+	}
+	// latlong.latitude = promotores[id].localizacao.latitude;
+	// latlong.longitude = promotores[id].localizacao.longitude;
 	return latlong;
+
 }
 
 
@@ -133,9 +142,26 @@ var url_server = "http://localhost:8080/TradeForce/";
 // var url_server = "http://192.168.0.1:8080/TradeForce/mercado";
 
 
+function popoulateHandlers(){
+	$(document).on("click",".mercados-selecionados .linha-mercados", function(ev){
+		ev.preventDefault();
+		console.log("jdhsajkdas");
+		var id = $(this).data("id");
+		excluiSelecaoMercados(id);
+	});
+	$(document).on("click",".container-todos-mercados .linha-mercados", function(ev){
+		ev.preventDefault();
+		console.log("nao selecionados");
+		var id = $(this).data("id");
+		selecionarMercados(id);
+	});
+}
+
 function ListarPromotores(){
 	$(document).ready(function() {
+		popoulateHandlers();
 		var url_json_promotores = url_server + 'promotor';
+
 		$.getJSON(url_json_promotores, function(json_promout) {
 			$('.nome-promo-lista').off('click');
 			for (var i = 0 ; i < json_promout.length; i++) {
@@ -171,10 +197,9 @@ function pegaClickSelecao(event) {
 	/*pega o id do promotor*/
 	var id_promotor_selecionado = $(".dados-promotor-selecionado .id-promotor").text();
 	/*chama a funcão de filtro*/
-	latlngTratada_promotor = devolveLatLng(id_promotor_selecionado);
-	console.log(latlngTratada_promotor.latitude);
-	console.log(latlngTratada_promotor.longitude);
-	centroMapRenderize(latlngTratada_promotor.latitude, latlngTratada_promotor.longitude, promotores[id_promotor_selecionado].nome);
+	latlngTratada_promotor = devolveLatLngName(id_promotor_selecionado);
+	console.log(latlngTratada_promotor);
+	centroMapRenderize(latlngTratada_promotor.latitude, latlngTratada_promotor.longitude, latlngTratada_promotor.nome);
 
 	/*coloca a posicao inicial do promotor para a comparação de rotas no raio*/
 	posicaoinit = {
@@ -192,38 +217,89 @@ function pegaClickSelecao(event) {
 
 
 
+var mercados = [];
+
 /*- Seleciona os que aparecem no raio
 ------------------------------------*/
-function selecionarMercados(){
-	$('.linha-mercados').click(function() {
-
+function selecionarMercados(id){
+	mercados = mercados.map(mercado=>{
+		if(mercado.id == id)
+			mercado.selecionado = !mercado.selecionado;
+		return mercado;
 	});
+	desenharMercados();
 }
+
+/* - Disceleciona os mercados
+-----------------------------*/
+function excluiSelecaoMercados(id){
+	mercados = mercados.map(mercado=>{
+		if(mercado.id == id)
+			mercado.selecionado = !mercado.selecionado;
+		return mercado;
+	});
+	desenharMercados();
+}
+
+function desenharMercados(){
+	var $mercadosSelecionadosContainer = $(".mercados-selecionados .lista-dados");
+	var $mercadosNaoSelecionadosContainer = $(".container-todos-mercados .lista-dados");
+	// ZERANDO O HTML
+	$mercadosSelecionadosContainer.html("");
+	$mercadosNaoSelecionadosContainer.html("");
+	console.log(mercados);
+	for (var i = mercados.length - 1; i >= 0; i--) {
+		var mercado = mercados[i];
+		var mercadoHTML = gerarMercadoHTML(mercado);
+		if(mercado.selecionado){
+			$mercadosSelecionadosContainer.append(mercadoHTML);
+		}else{
+			$mercadosNaoSelecionadosContainer.append(mercadoHTML);
+		}
+	}
+}
+
+function gerarMercadoHTML(mercado){
+	return $(
+		'<div class="linha-mercados" data-id="'+mercado.id+'" id="mercado-id-'+ mercado.id+'">'
+			+'<span>'+mercado.id + '</span> - '
+			+ mercado.nome
+		+ '</div>');
+}
+
+
 
 function ListarMercados(raio) {
 	ajaxindicatorstart('Aguarde');
 	$.getJSON(url_server + 'mercado', function (data) {
-		for (var i = 0; i < data.length; i++) {
-			/*seta a posição do mercado para comparar o raio*/
-			var posicaoMercado = {
-				posicao : {
-					latitude : data[i].localizacao.latitude,
-					longitude: data[i].localizacao.longitude
-				}
-			}
-			/*chama a funcao que mede a distancia entre mercado e promotor*/
-			var distanciaPromotorMercado = positionsreturn(posicaoinit.posicao, posicaoMercado.posicao);
-			/*Faz a verificação dos mercados por o raio*/
-			if(distanciaPromotorMercado <= raio){
-				/* Monta o layout dos mercados do raio */
-				var linhaMercado = '<div class="linha-mercados">'
-				+'<span id="mercado-id-1">'+data[i].id + '</span> - '
-				+ data[i].nome
-				+ '</div>';
-				$(".lista-dados").append(linhaMercado);
-			}
-		}
-		selecionarMercados();
+		mercados = data;
+		mercados = mercados.map(mercado=>{
+			mercado.selecionado = false;
+			return mercado;
+		});
+		desenharMercados();
+		// for (var i = 0; i < data.length; i++) {
+		// 	/*seta a posição do mercado para comparar o raio*/
+		// 	var posicaoMercado = {
+		// 		posicao : {
+		// 			latitude : data[i].localizacao.latitude,
+		// 			longitude: data[i].localizacao.longitude
+		// 		}
+		// 	}
+		// 	/*chama a funcao que mede a distancia entre mercado e promotor*/
+		// 	var distanciaPromotorMercado = positionsreturn(posicaoinit.posicao, posicaoMercado.posicao);
+		// 	/*Faz a verificação dos mercados por o raio*/
+		// 	if(distanciaPromotorMercado <= raio){
+		// 		/* Monta o layout dos mercados do raio */
+		// 		var linhaMercado =
+		// 		'<div class="linha-mercados" id="mercado-id-'+ data[i].id+'">'
+		// 			+'<span>'+data[i].id + '</span> - '
+		// 			+ data[i].nome
+		// 		+ '</div>';
+		// 		$(".lista-dados").append(linhaMercado);
+		// 	}
+		// }
+		// selecionarMercados();
 		ajaxindicatorstop()
 	})
 	.fail(function() { //fail,always,error
@@ -252,7 +328,7 @@ function centroMapRenderize(lat, long, nome){
   	}
 
 
-/*Funcao que mede a distancia entre 2 pontos*/
+  	/*Funcao que mede a distancia entre 2 pontos*/
 // Objeto para calcular a distancia entre dois pontos
 // Adaptado dessa formula http://stackoverflow.com/questions/27928/how-do-i-calculate-distance-between-two-latitude-longitude-points
 function positionsreturn( pontoInicial, pontoFinal){

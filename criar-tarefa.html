@@ -91,7 +91,7 @@
 				<div class="lista-mercados">
 					<span class="avisoRaio"> • Escolha o promotor para selecionar o mercado</span>
 					<div class="container-mercado">
-					Mercado
+						Mercado
 						<div class="raioselection">
 							Mercados Proximos à
 							<input type="text" id="raioParaMercado" placeholder="Raio" /> km
@@ -99,14 +99,20 @@
 						</div>
 						<input type="text" class="nome-mercado" placeholder="Pesquisar nome do mercado" />
 						<div class="mercados-selecionados">
-
+							<h3>Mercados Selecionados:</h3>
+							<div class="lista-dados">
+							</div>
 						</div>
-						<div class="lista-dados"></div>
+						<div class="container-todos-mercados">
+							<h3>Todos os Mercados no Raio</h3>
+							<div class="lista-dados">
+							</div>
+						</div>
 					</div>
 				</div>
 			</form>
 			<br class="clear" />
-				<input type="submit" value="Enviar" name="btnEnviar" />
+			<input type="submit" value="Enviar" name="btnEnviar" />
 		</div>
 	</div>
 
@@ -119,7 +125,7 @@
 
 	RAIO FIXO DE +/- 40KM
 	BOTAO DE MAIS E MENOS PARA AUMENTAR E DIMINUIR O RAIO
-------------------------------------------------------------*/
+	------------------------------------------------------------*/
 
 
 
@@ -140,15 +146,17 @@
 					$(this).css("display", "none");
 			});
 		});
-		$(".nome-mercado").keyup(function(){
-			var texto = $(this).val();
-			$(".linha-mercados").css("display", "inline-block");
-			$(".linha-mercados").each(function(){
-				if($(this).text().toUpperCase().indexOf(texto.toUpperCase()) < 0)
-					$(this).css("display", "none");
+		function pesquisarMercado(){
+			$(".nome-mercado").keyup(function(){
+				var texto = $(this).val();
+				$(".linha-mercados").css("display", "inline-block");
+				$(".linha-mercados").each(function(){
+					if($(this).text().toUpperCase().indexOf(texto.toUpperCase()) < 0)
+						$(this).css("display", "none");
+				});
 			});
-		});
-
+		}
+		pesquisarMercado();
 
 		/* - desseleciona o promotor escolhido
 		---------------------------------------------*/
@@ -170,6 +178,11 @@
 			/* Act on the event */
 			ListarMercados(raioParaMercado);
 			$('.nome-mercado').slideDown(300);
+
+			/* - Abre o campo de seleção do mercado
+			----------*/
+			$('.mercados-selecionados').slideDown(300);
+			$('.container-todos-mercados').slideDown(300);
 		});
 
 
