@@ -240,7 +240,6 @@ function editar(id) {
 
 function inserir() {
 	if (validacaoForm() != true) { return; }
-	//console.log(nome + " - " + razaoSocial + " - " + endereco + " - " + lat + " - " + lng);
 	RESTinserir(nome,login,senha,idade,endereco,empnome,emprazaoSocial,empcnpj, lat, lng).done(handleData);
 }
 
