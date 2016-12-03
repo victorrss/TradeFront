@@ -16,7 +16,9 @@ br.clear{
 	margin-top: 30px;
 	text-align: center;
 }
-
+.configuracoes-user{
+	display: none;
+}
 #page_navigation a {
     padding: 3px;
     border: 1px solid gray;

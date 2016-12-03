@@ -148,6 +148,7 @@ function RESTinserir(nome,login,senha,idade,endereco,empnome,emprazaoSocial,empc
 }
 
 function RESTeditar(id,nome,login,senha,idade,endereco,empnome,emprazaoSocial,empcnpj, lat, lng) {
+	console.log(lat +' - '+ lng);
 	return $.ajax({
 		//async: false,
 		global: true,

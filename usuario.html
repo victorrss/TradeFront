@@ -6,10 +6,11 @@
 	<script src="auto/jquery.min.js"></script>
 	<link rel="stylesheet" href="fontaw/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="css/style.css" />
-	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAF9SwzxHRiH5n3RGs2-CVha2GEhXVFFqw&amp;sensor=false"></script>
-	<script type="text/javascript" src="auto/mapa.js"></script>
+	<link rel="stylesheet" href="css/messagebox.css" />
+	<script type="text/javascript" src="js/messagebox.min.js"></script>
 	<script type="text/javascript" src="auto/jquery-ui.custom.min.js"></script>
 	<link href="auto/estilo.css" type="text/css" rel="stylesheet" />
+		<script type="text/javascript" src="js/rest/usuario.js"></script>
 </head>
 <body>
 	<header>
@@ -26,6 +27,7 @@
 		<div class="user">
 			Usuario: <span>Gilberto Gomes</span>  <i class="fa fa-cog" aria-hidden="true"></i>
 			<div class="configuracoes-user">
+				<!-- desabilitado no css -->
 				<ul>
 					<li><a href="dasdasdasd.php" title="">Alterar Senha</a></li>
 					<li><a href="#" title="">Alterar informações da conta</a></li>
@@ -45,7 +47,7 @@
 			</li>
 			<li><a href="promotores.html"><i class="fa fa-universal-access" aria-hidden="true"></i> <span>Promotores</span></a></li>
 			<li><a href="mercados.html"><i class="fa fa-universal-access" aria-hidden="true"></i> <span>Mercados</span></a></li>
-			<li><a href="usuarios.html"><i class="fa fa-universal-access" aria-hidden="true"></i> <span>Usuarios</span></a></li>
+			<!-- <li><a href="usuarios.html"><i class="fa fa-universal-access" aria-hidden="true"></i> <span>Usuarios</span></a></li> -->
 			<li><a href="empresas.html"><i class="fa fa-universal-access" aria-hidden="true"></i> <span>Empresas</span></a></li>
 		</ul>
 		<span class="minima"><i class="fa fa-align-justify" aria-hidden="true"></i></span>
@@ -67,19 +69,19 @@
 					<div class="td td_menor_usuario">
 						<label>Tipo de Usuario</label>
 						<select id="tipo_user" name="tipo_usuario">
-							<option value="" selected disabled>Selecione</option>
-							<option value="Administrador">Administrador</option>
-							<option value="Operador">Operador</option>
+							<option value=""  disabled>Selecione</option>
+							<option value="A" selected>Administrador</option>
+							<!-- <option value="Operador">Operador</option> -->
 						</select>
 					</div>
-					<div class="td space"></div>
+					<!-- <div class="td space"></div>
 					<div class="td td_menor_usuario">
 						<label>Status</label>
 						<select id="empresa" name="empresa">
 							<option value="Ativo" selected>Ativo</option>
 							<option value="Inativo">Inativo</option>
 						</select>
-					</div>
+					</div> -->
 				</div>
 
 				<div class="table">
@@ -93,7 +95,7 @@
 						<input type="text" id="senha" name="senha" placeholder="promout_123@" required/>
 					</div>
 				</div>
-				<input type="submit" value="Enviar" name="btnEnviar" />
+				<input type="button" onclick="inserir()" value="Enviar" name="btnEnviar" />
 				<input type="hidden" id="txtLatitude" name="txtLatitude" />
 				<input type="hidden" id="txtLongitude" name="txtLongitude" />
 			</form>
@@ -105,19 +107,6 @@
 		<!-- footer -->
 	</footer>
 	<script>
-		$('.botao-mostrar-site input').click(function(event) {
-
-			var tipo_logradouro = $('#tipo_logradouro').val()
-			var endereco = $('#endereco').val();
-			if(endereco == null && endereco == undefined){
-				endereco = " ";
-			}
-			var cep = $('#cep').val();
-			var logradouro_completo = endereco + ' - ' +  cep;
-			$('#txtEndereco').val(logradouro_completo);
-		});
-
-
 		$('.minima').click(function(event) {
 			$('aside ul li span').toggleClass('dnon');
 			$('aside').toggleClass('min-aside');
