@@ -120,6 +120,7 @@ var promotores = [];
 /*faz o filtro para pegar a latitude e longitude do promotor clicado */
 function devolveLatLng(id){
 	var latlong = {};
+	console.log(promotores);
 	latlong.latitude = promotores[id].localizacao.latitude;
 	latlong.longitude = promotores[id].localizacao.longitude;
 	return latlong;
@@ -128,17 +129,21 @@ function devolveLatLng(id){
 
 
 
-var url_server = "http://localhost:8080/TradeForce/mercado";
+var url_server = "http://localhost:8080/TradeForce/";
+// var url_server = "http://192.168.0.1:8080/TradeForce/mercado";
 
 
 function ListarPromotores(){
 	$(document).ready(function() {
-		var url_json_promotores = "https://private-5b99d-tradeplace.apiary-mock.com/promotor";
+		var url_json_promotores = url_server + 'promotor';
 		$.getJSON(url_json_promotores, function(json_promout) {
 			$('.nome-promo-lista').off('click');
 			for (var i = 0 ; i < json_promout.length; i++) {
 				var linhaPromotor = ''
-				+ '<div class="nome-promo-lista">'+' <div class="id-promotor">'+json_promout[i].id+'</div>'  + json_promout[i].nome +' <i>  '+ json_promout[i].empresa+' </i></div>';
+				+ '<div class="nome-promo-lista">'
+				+' <div class="id-promotor">'+json_promout[i].id+'</div>'
+				+ json_promout[i].nome +' <i> - '
+				+ json_promout[i].empresa.nome+' </i></div>';
 				$(".lista-todos-promotores").append(linhaPromotor);
 				promotores.push(json_promout[i]);
 			}
@@ -179,12 +184,25 @@ function pegaClickSelecao(event) {
 		}
 	}
 
+	/*Ativar escolha de raio e lista de mercados e retira o aviso */
+	$(".container-mercado").slideToggle(300);
+	$(".avisoRaio").slideToggle(300);
+
 }
 
 
+
+/*- Seleciona os que aparecem no raio
+------------------------------------*/
+function selecionarMercados(){
+	$('.linha-mercados').click(function() {
+
+	});
+}
+
 function ListarMercados(raio) {
 	ajaxindicatorstart('Aguarde');
-	$.getJSON(url_server, function (data) {
+	$.getJSON(url_server + 'mercado', function (data) {
 		for (var i = 0; i < data.length; i++) {
 			/*seta a posição do mercado para comparar o raio*/
 			var posicaoMercado = {
@@ -195,16 +213,17 @@ function ListarMercados(raio) {
 			}
 			/*chama a funcao que mede a distancia entre mercado e promotor*/
 			var distanciaPromotorMercado = positionsreturn(posicaoinit.posicao, posicaoMercado.posicao);
-			console.log(distanciaPromotorMercado);
-			if(distanciaPromotorMercado < raio){
+			/*Faz a verificação dos mercados por o raio*/
+			if(distanciaPromotorMercado <= raio){
 				/* Monta o layout dos mercados do raio */
 				var linhaMercado = '<div class="linha-mercados">'
-				+'<span>'+data[i].id + '</span> - '
+				+'<span id="mercado-id-1">'+data[i].id + '</span> - '
 				+ data[i].nome
 				+ '</div>';
 				$(".lista-dados").append(linhaMercado);
 			}
 		}
+		selecionarMercados();
 		ajaxindicatorstop()
 	})
 	.fail(function() { //fail,always,error
@@ -215,7 +234,7 @@ function ListarMercados(raio) {
 	});
 }
 
-
+/*Centraliza o Mapa do Promotor*/
 function centroMapRenderize(lat, long, nome){
 	mapOptions = {
 		center: new google.maps.LatLng(lat, long),
@@ -233,7 +252,7 @@ function centroMapRenderize(lat, long, nome){
   	}
 
 
-  	/*Funcao que mede a distancia entre 2 pontos*/
+/*Funcao que mede a distancia entre 2 pontos*/
 // Objeto para calcular a distancia entre dois pontos
 // Adaptado dessa formula http://stackoverflow.com/questions/27928/how-do-i-calculate-distance-between-two-latitude-longitude-points
 function positionsreturn( pontoInicial, pontoFinal){
@@ -250,11 +269,3 @@ function graus2Radianos( graus ){
 }
 
 
-
-
-
-// function verificaMercadosRaio(latlongPromotor, raio, p){
-
-// 	positionsreturn(posicaoinit.posicao, posicoesfinal.posicao);
-
-// }

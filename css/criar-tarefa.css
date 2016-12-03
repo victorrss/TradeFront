@@ -66,11 +66,12 @@
 .lista-mercados {
     display: inline-block;
     width: 60%;
-        padding: 5px;
+    padding: 5px;
 }
 .linha-mercados {
     width: calc(50% - 14px);
     display: inline-block;
+    cursor: pointer;
 }
 .linha-mercados {
     background: linear-gradient(#fff, #f7f7f7);
@@ -93,9 +94,10 @@
 }
 #listarmercadosnoraio {
     width: 92px;
-    padding: 7px 0;
+    padding: 4px 0;
     background: #eee;
-    margin: 0px 7px 0px 23px;
+    display: inline-block;
+    margin: 0px 7px 0px 9px;
 }
 #raioParaMercado {
     width: 100px;
@@ -104,11 +106,37 @@
     margin: 0px 8px;
 }
 .raioselection {
-    font-size: 14px;
+    font-size: 13px;
     color: #656565;
-    display: inline-block;
-    float: right;
     padding: 5px 0px 5px 22px;
-    margin: 6px 5px;
+    margin: 0 -21px 5px;
     border-right: 5px solid #a2a2a2;
+    display: block;
+	background: #eee;
+
+}
+.container-mercado {
+	display: none;
+}
+.container-mercado input {
+    width: calc(100% - 16px);
+    padding: 5px 0 8px 9px;
+    margin-bottom: 17px;
+    border: solid 1px #b9b9b9;
+    border-radius: 2px;
+    box-shadow: -1px 1px 1px rgba(189, 189, 189, 0.51);
+}
+.avisoRaio {
+    font-size: 13px;
+    color: #23a599;
+    text-transform: uppercase;
+    text-align: center;
+    display: block;
+    border: solid 1px #d4d4d4;
+    padding: 8px;
+    margin-top: 21px;
+}
+
+.nome-mercado {
+	display: none;
 }
