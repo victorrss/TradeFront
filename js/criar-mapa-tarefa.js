@@ -165,6 +165,7 @@ function ListarPromotores(){
 		$.getJSON(url_json_promotores, function(json_promout) {
 			$('.nome-promo-lista').off('click');
 			for (var i = 0 ; i < json_promout.length; i++) {
+				console.log(json_promout[i]);
 				var linhaPromotor = ''
 				+ '<div class="nome-promo-lista">'
 				+' <div class="id-promotor">'+json_promout[i].id+'</div>'
@@ -343,5 +344,3 @@ function positionsreturn( pontoInicial, pontoFinal){
 function graus2Radianos( graus ){
 	return graus * ( Math.PI/180 )
 }
-
-

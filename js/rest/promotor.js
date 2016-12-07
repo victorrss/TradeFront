@@ -123,15 +123,16 @@ function RESTlistar() {
 	});
 }
 
-function RESTinserir(nome,login,senha,idade,endereco,empnome,emprazaoSocial,empcnpj, lat, lng) {
+function RESTinserir(nome,login,senha,idade,endereco,empid, lat, lng) {
 	console.log(nome + ' ' + razaoSocial + ' ' + endereco + ' ' + lat + ' ' + lng);
+
 	return $.ajax({
 		//async: false,
 		global: true,
 		type: 'POST',
 		url: url,
-		data: '{"nome": "' + nome + '","login":"' + login + '","senha": "' + senha + '", "idade": ' + idade + ','+
-		'"empresa": {"nome": "' + empnome + '","razaoSocial": "' + emprazaoSocial + '","cnpj": ' + empcnpj + '},'+
+		data: '{"nome": "' + nome + '","login":"' + login + '","senha": "' + senha + '", "idade": ' + idade + ', "endereco": "' + endereco + '",'+
+		'"empresa": {"id": "' + empid + '"},'+
 		'"localizacao": {"latitude": "' + lat + '","longitude": "' + lng + '"}}',
 		contentType: "application/json; charset=UTF-8",
 		error: function (jqXHR, textStatus, errorThrown) {
@@ -147,15 +148,18 @@ function RESTinserir(nome,login,senha,idade,endereco,empnome,emprazaoSocial,empc
 });
 }
 
-function RESTeditar(id,nome,login,senha,idade,endereco,empnome,emprazaoSocial,empcnpj, lat, lng) {
-	console.log(lat +' - '+ lng);
+function RESTeditar(id,nome,login,senha,idade,endereco,empid, lat, lng) {
+	//console.log(lat +' - '+ lng);
+	console.log('{"nome": "' + nome + '","login":"' + login + '","senha": "' + senha + '", "idade": ' + idade + ', "endereco": "' + endereco + '",'+
+	'"empresa": {"id": "' + empid + '"},'+
+	'"localizacao": {"latitude": "' + lat + '","longitude": "' + lng + '"}}');
 	return $.ajax({
 		//async: false,
 		global: true,
 		type: 'PUT',
 		url: url+'/'+id,
-		data: '{"nome": "' + nome + '","login":"' + login + '","senha": "' + senha + '", "idade": ' + idade + ','+
-		'"empresa": {"nome": "' + empnome + '","razaoSocial": "' + emprazaoSocial + '","cnpj": ' + empcnpj + '}}'+
+		data: '{"nome": "' + nome + '","login":"' + login + '","senha": "' + senha + '", "idade": ' + idade + ', "endereco": "' + endereco + '",'+
+		'"empresa": {"id": "' + empid + '"},'+
 		'"localizacao": {"latitude": "' + lat + '","longitude": "' + lng + '"}}',
 		contentType: "application/json; charset=UTF-8",
 		error: function (jqXHR, textStatus, errorThrown) {
@@ -226,21 +230,18 @@ function editar(id) {
 	senha = $('#senha').val();
 	idade = $('#idade').val();
 	endereco = $('#txtEndereco').val();
-	empresa = JSON.parse($('#empresa option:selected').attr('data-support'));
-	empnome = empresa[0];
-	emprazaoSocial = empresa[1];
-	empcnpj  = empresa[2];
+	empid =$('#empresa').val();
 	lat = $('#txtLatitude').val();
 	lng = $('#txtLongitude').val();
 
-	RESTeditar(id,nome,login,senha,idade,endereco,empnome,emprazaoSocial,empcnpj, lat, lng).done(function(data, textStatus, jqXHR) {
+	RESTeditar(id,nome,login,senha,idade,endereco,empid, lat, lng).done(function(data, textStatus, jqXHR) {
 		handleData(data, textStatus, jqXHR, 'editar');
 	});
 }
 
 function inserir() {
 	if (validacaoForm() != true) { return; }
-	RESTinserir(nome,login,senha,idade,endereco,empnome,emprazaoSocial,empcnpj, lat, lng).done(handleData);
+	RESTinserir(nome,login,senha,idade,endereco,empid, lat, lng).done(handleData);
 }
 
 function clickMostrarMapa() {
@@ -269,12 +270,12 @@ function validacaoForm() {
 	senha = $('#senha').val();
 	idade = $('#idade').val();
 	endereco = $('#txtEndereco').val();
-	empresa = JSON.parse($('#empresa option:selected').attr('data-support'));
-	empnome = empresa[0];
-	emprazaoSocial = empresa[1];
-	empcnpj  = empresa[2];
+	empid =$('#empresa').val();
 	lat = $('#txtLatitude').val();
 	lng = $('#txtLongitude').val();
 
+		//empresa = JSON.parse($('#empresa option:selected').attr('data-support'));
+	// emprazaoSocial = empresa[1];
+	// empcnpj  = empresa[2];
 	return true;
 }

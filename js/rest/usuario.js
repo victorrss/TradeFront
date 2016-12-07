@@ -1,4 +1,4 @@
-var url = 'http://localhost:8080/TradeForce/promotor';
+var url = 'http://localhost:8080/TradeForce/administrador';
 var nome ;
 var login ;
 var senha ;
