@@ -12,6 +12,9 @@
 	<script type="text/javascript" src="auto/jquery-ui.custom.min.js"></script>
 	<link href="auto/estilo.css" type="text/css" rel="stylesheet" />
 	<script type="text/javascript" src="js/rest/relatorio.js"></script>
+	<script type="text/javascript" src="js/jsPDF/jspdf.min.js"></script>
+	<link rel="stylesheet" href="css/messagebox.css" />
+	<script type="text/javascript" src="js/jsPDF/jspdf.plugin.autotable.js"></script>
 </head>
 <body>
 	<div class="loadingDiv"></div>
@@ -56,7 +59,7 @@
 	</aside>
 	<div class="title-page">
 		<div class="title">
-			<h1>Relatorios
+			<h1>Relatórios
 			</h1>
 		</div>
 	</div>
@@ -71,14 +74,18 @@
 						<select id="promotor" name="promotor">
 							<option value="" selected disabled>Selecione</option>
 						</select>
-						<input type="button" onclick="listar()" value="Gerar" />
+
+						<button type="button" onclick="listar()" name="button">Gerar</button>
+
 					</div>
 				</div>
 			</form>
+
 			<section class="lista-dados">
 				<!-- dados vindos do relatorio.js -->
 				<div class="linha-dados table" id="listTarefa">
-					<div class="td lista-40">	Data Criação				</div>
+					<div class="td space"></div>
+					<div class="td">	Data Criação				</div>
 					<div class="td space"></div>
 					<div class="td">					Qtd. Mercados						</div>
 					<div class="td space"></div>
@@ -86,11 +93,16 @@
 					<div class="td space"></div>
 					<div class="td">					Tarefa ID					</div>
 					<div class="td space"></div>
+				</div>
 
-				</section>
-				<div id='page_navigation'></div>
+			</section>
+			<div id='page_navigation'></div>
+
+			<div class="table" style="text-align: center;  width: 100%;">
+				<div class="td">
+					<button class="export" type="button" onclick="exportPDF()" disabled><i class="fa fa-file-pdf-o fa-2x"></i> Exportar PDF</button>
+				</div>
 			</div>
-
 
 		</div>
 

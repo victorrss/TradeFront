@@ -2,6 +2,7 @@
 var url = 'http://localhost:8080/TradeForce/relatorio';
 var urlPromotor = 'http://localhost:8080/TradeForce/promotor';
 var idPromotor;
+var rowsPDF = [];
 
 $(document).ready(function ($) {
 	loadSelectPromotor();
@@ -10,12 +11,12 @@ function loadSelectPromotor(){
 	ajaxindicatorstart('Aguarde');
 	$.getJSON(urlPromotor, function (data) {
 		$.each(data, function (i, data) {
-    $('#promotor').append(
-        $('<option value=""></option>')
-          .attr('value', data.id)
-          .text(data.nome +' - ID: '+ data.id +' - Login: '+ data.login)
-				);
-});
+			$('#promotor').append(
+				$('<option value=""></option>')
+				.attr('value', data.id)
+				.text(data.nome +' - ID: '+ data.id +' - Login: '+ data.login)
+			);
+		});
 		ajaxindicatorstop()
 	})
 	.fail(function() { //fail,always,error
@@ -23,85 +24,79 @@ function loadSelectPromotor(){
 			customClass: "custom_messagebox",
 			message: "Ocorreu um erro, tente novamente!"
 		});
-			window.location="index.html";
+		window.location="index.html";
 	});
 }
 
-function CallbackListarPorID(data) {
-	ajaxindicatorstop()
-	promotor = data;
-	console.log(promotor);
-	$('#nome').val(promotor.nome);
-	$('#login').val(promotor.login);
-	$('#senha').val(promotor.senha);
-	$('#idade').val(promotor.idade);
-	$('#empresa option[value='+promotor.empresa.id+']').attr('selected','selected');
-	$('#userEndereco').val(promotor.endereco);
-	$('#txtEndereco').val(promotor.endereco);
-	$('#txtLatitude').val(promotor.localizacao.latitude);
-	$('#txtLongitude').val(promotor.localizacao.longitude);
-	setEditPointMap(promotor.localizacao.latitude,promotor.localizacao.longitude);
-	clickMostrarMapa();
-	//$("#btnEndereco").click();
-	return promotor;
-}
-
-function RESTlistar(id){
-	var result;
+function RESTlistar(id) {
+	var rowsPDF = [];
 	ajaxindicatorstart('Aguarde');
-	$.getJSON(url+'/'+id,  CallbackListarPorID)
-	.fail(function() {
-		ajaxindicatorstop() //fail,always,error
+	$.getJSON(url+'/'+id, function (data) {
+		for (var i = 0; i < data.length; i++) {
+			rowsPDF.push(
+				{"id": "'"+data[i].idTarefa+"'","data": "'"+data[i].data+"'", "mercados": "'"+data[i].quantidadeMercados+"'", "valor": "'"+data[i].valorTotal+"'"}
+			);
+			var linhaRelatorio =
+			'<div class="linha-dados table" id="listTarefa'+data[i].idTarefa+'">'
+			+'<div class="td space"></div>'
+			+'<div class="td">	'+data[i].data+'				</div>'
+			+'<div class="td space"></div>'
+			+'<div class="td">					'+data[i].quantidadeMercados+'						</div>'
+			+'<div class="td space"></div>'
+			+'<div class="td">					'+data[i].valorTotal+'					</div>'
+			+'<div class="td space"></div>'
+			+'<div class="td">					'+data[i].idTarefa+'					</div>'
+			+'<div class="td space"></div>'
+			+'</div>'
+			console.log(linhaRelatorio);
+			$(".lista-dados").append(linhaRelatorio);
+		}
+		ajaxindicatorstop();
+	})
+	.fail(function() { //fail,always,error
 		$.MessageBox({
 			customClass: "custom_messagebox",
 			message: "Ocorreu um erro, tente novamente!"
 		});
 	});
-}
-
-function handleData(data, textStatus, jqXHR,acao) {
-	//console.log(JSON.stringify(textStatus));
-	//console.log(JSON.stringify(data));
-	//console.log(JSON.stringify(jqXHR));
-
-	if (jqXHR.status == 201) {
-		$.MessageBox({
-			customClass: "custom_messagebox",
-			message: "Cadastrado com sucesso!"
-		}).done(function(data, button){
-				window.location.reload(true);
-		});
-	}else if (jqXHR.status == 204) {
-		if (acao == 'editar') {
-			$.MessageBox({
-				customClass: "custom_messagebox",
-				message: "Atualizado com sucesso!"
-			}).done(function(data, button){
-				window.location="promotores.html";
-			});
-		}else	if (acao == 'excluir') {
-			$.MessageBox({
-				customClass: "custom_messagebox",
-				message: "Excluido com sucesso!"
-			}).done(function(data, button){
-				location.reload(true);
-			});
-		}
-	}else {
-		$.MessageBox({
-			message: "Ocorreu um erro, tente novamente!"
-		});
-	}
 }
 
 function listar() {
 	idPromotor = $("#promotor").val();
 	if(idPromotor >= 1){
-		RESTlistar(idPromotor)
+		RESTlistar(idPromotor);
+		 $(".export").prop("disabled", false);
 	}
 	else{
 		$.MessageBox({
 			message: "Selecione um promotor!"
 		});
 	}
+}
+var elementHandler = {
+	'#ignoreElement': function (element, renderer) {
+		return true;
+	},
+	'#anotherIdToBeIgnored': function (element, renderer) {
+		return true;
+	}
+};
+
+function exportPDF(){
+	var columns = [
+		{title: "Tarefa ID", dataKey: "id"},
+		{title: "Data Criação", dataKey: "data"},
+		{title: "Qtd. Mercados", dataKey: "mercados"},
+		{title: "Valor Total", dataKey: "valor"}
+
+	];
+
+	var doc = new jsPDF('p', 'pt');
+	doc.autoTable(columns, rowsPDF, {
+		margin: {top: 60},
+		addPageContent: function(data) {
+			doc.text("Relatório Tarefas", 40, 30);
+		}
+	});
+	doc.save('TradePlaceRelatorio.pdf');
 }

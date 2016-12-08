@@ -169,7 +169,7 @@ function devolveLatLngName(id){
 
 
 
-var url_server = "http://192.168.2.251:8080/TradeForce/";
+var url_server = "http://localhost:8080/TradeForce/";
 // var url_server = "http://192.168.0.1:8080/TradeForce/mercado";
 
 
