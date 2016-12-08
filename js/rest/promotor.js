@@ -1,6 +1,6 @@
 //var url = 'https://private-5b99d-tradeplace.apiary-mock.com/promotors';
-var url = 'http://localhost:8080/TradeForce/promotor';
-var urlEmpresa = 'http://localhost:8080/TradeForce/empresa';
+var url = 'http://192.168.2.251:8080/TradeForce/promotor';
+var urlEmpresa = 'http://192.168.2.251:8080/TradeForce/empresa';
 var nome ;
 var razaoSocial ;
 var endereco ;

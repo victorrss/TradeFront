@@ -176,3 +176,17 @@
 .lista-mercados-selecionados em {
     margin: 0 0 0 11px;
 }
+
+#enviar-tarefa {
+	display: none;
+	width: 200px;
+    float: right;
+    margin-right: 34px;
+    background: #23a599;
+    border: 1px solid #248e84;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+}

@@ -1,5 +1,5 @@
 //var url = 'https://private-5b99d-tradeplace.apiary-mock.com/mercados';
-var url = 'http://localhost:8080/TradeForce/mercado';
+var url = 'http://192.168.2.251:8080/TradeForce/mercado';
 
 var nome ;
 var razaoSocial ;

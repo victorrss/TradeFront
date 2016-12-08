@@ -115,6 +115,37 @@ function createMarker(latlng, nome, morada1, morada2, codPostal){
   });
 }
 
+
+
+/* - CRIA O JSON DE TAREFAS PARA ENVIO DO BACK
+   - Inicialização de variaveis para criar a tarefa
+   ------------------------------------------------*/
+
+var JsonTarefa = {};
+var JsonMercados = []
+var JsonPromotor = []
+var JsonIdPromotorSelecionadoTarefa;
+
+JsonTarefa.promotor = JsonPromotor;
+JsonTarefa.mercados = JsonMercados;
+
+function populaJsonTarefa_promotor(JsonPromotor_id){
+	JsonPromotor= {
+		"id":JsonPromotor_id
+	}
+	JsonTarefa.promotor.push(JsonPromotor);
+}
+function populaJsonTarefa_mercados(JsonMercados_id){
+	JsonMercados = {
+		"id": JsonMercados_id
+	}
+	JsonTarefa.mercados.push(JsonMercados);
+
+}
+
+
+
+
 /*variavel global para armazenar os promotores vindos do json*/
 var promotores = [];
 /*faz o filtro para pegar a latitude e longitude do promotor clicado */
@@ -138,7 +169,7 @@ function devolveLatLngName(id){
 
 
 
-var url_server = "http://localhost:8080/TradeForce/";
+var url_server = "http://192.168.2.251:8080/TradeForce/";
 // var url_server = "http://192.168.0.1:8080/TradeForce/mercado";
 
 
@@ -186,8 +217,8 @@ function ListarPromotores(){
 var latlngTratada_promotor;
 /* Deixa a posicao init global para ser usado na filtragem dos mercadls */
 var posicaoinit = [];
-
-
+/* Deixa o Raio do promotor ao mercado global para que possa ser usado nos mercados quando selecionados e nao selecionados */
+var raioDoMercado;
 
 
 function pegaClickSelecao(event) {
@@ -197,6 +228,11 @@ function pegaClickSelecao(event) {
 	$(".lista-todos-promotores").slideToggle(300);
 	/*pega o id do promotor*/
 	var id_promotor_selecionado = $(".dados-promotor-selecionado .id-promotor").text();
+
+	/* - Coloca o Id do promotor para ser usado mais tarde quando for ser feito o json de envio
+	--------------------------------------------------------------------------------------*/
+	JsonIdPromotorSelecionadoTarefa = id_promotor_selecionado;
+
 	/*chama a funcão de filtro*/
 	latlngTratada_promotor = devolveLatLngName(id_promotor_selecionado);
 	console.log(latlngTratada_promotor);
@@ -243,14 +279,29 @@ function excluiSelecaoMercados(id){
 }
 
 function desenharMercados(){
+	var mercadosPorRaio = [];
 	var $mercadosSelecionadosContainer = $(".mercados-selecionados .lista-dados");
 	var $mercadosNaoSelecionadosContainer = $(".container-todos-mercados .lista-dados");
 	// ZERANDO O HTML
 	$mercadosSelecionadosContainer.html("");
 	$mercadosNaoSelecionadosContainer.html("");
-	console.log(mercados);
+	console.log('Mercados : ' + mercados);
+	//SETANDO OS MERCADOS QUE SERÃO USADOS EM RELAÇÃO AO RAIO
 	for (var i = mercados.length - 1; i >= 0; i--) {
-		var mercado = mercados[i];
+		var posicaoMercado = {
+			posicao : {
+				latitude : mercados[i].localizacao.latitude,
+				longitude: mercados[i].localizacao.longitude
+			}
+		}
+		var distanciaPromotorMercado = positionsreturn(posicaoinit.posicao, posicaoMercado.posicao);
+		if(distanciaPromotorMercado <= raioDoMercado){
+			mercadosPorRaio.push(mercados[i]);
+		}
+
+	}
+	for (var i = mercadosPorRaio.length - 1; i >= 0; i--) {
+		var mercado = mercadosPorRaio[i];
 		var mercadoHTML = gerarMercadoHTML(mercado);
 		if(mercado.selecionado){
 			$mercadosSelecionadosContainer.append(mercadoHTML);
@@ -262,10 +313,10 @@ function desenharMercados(){
 
 function gerarMercadoHTML(mercado){
 	return $(
-		'<div class="linha-mercados" data-id="'+mercado.id+'" id="mercado-id-'+ mercado.id+'">'
-			+'<span>'+mercado.id + '</span> - '
-			+ mercado.nome
-		+ '</div>');
+	         '<div class="linha-mercados" data-id="'+mercado.id+'" id="mercado-id-'+ mercado.id+'">'
+	         +'<span>'+mercado.id + '</span> - '
+	         + mercado.nome
+	         + '</div>');
 }
 
 
@@ -278,7 +329,9 @@ function ListarMercados(raio) {
 			mercado.selecionado = false;
 			return mercado;
 		});
+		raioDoMercado = raio;
 		desenharMercados();
+
 		// for (var i = 0; i < data.length; i++) {
 		// 	/*seta a posição do mercado para comparar o raio*/
 		// 	var posicaoMercado = {
@@ -287,20 +340,21 @@ function ListarMercados(raio) {
 		// 			longitude: data[i].localizacao.longitude
 		// 		}
 		// 	}
+
 		// 	/*chama a funcao que mede a distancia entre mercado e promotor*/
 		// 	var distanciaPromotorMercado = positionsreturn(posicaoinit.posicao, posicaoMercado.posicao);
+		// 	console.log(distanciaPromotorMercado);
 		// 	/*Faz a verificação dos mercados por o raio*/
 		// 	if(distanciaPromotorMercado <= raio){
 		// 		/* Monta o layout dos mercados do raio */
-		// 		var linhaMercado =
-		// 		'<div class="linha-mercados" id="mercado-id-'+ data[i].id+'">'
-		// 			+'<span>'+data[i].id + '</span> - '
-		// 			+ data[i].nome
-		// 		+ '</div>';
-		// 		$(".lista-dados").append(linhaMercado);
+		// 		desenharMercados();
 		// 	}
 		// }
 		// selecionarMercados();
+
+		// Libera o botão Submit do formulario
+		$('#enviar-tarefa').slideDown(300);
+
 		ajaxindicatorstop()
 	})
 	.fail(function() { //fail,always,error
@@ -332,7 +386,7 @@ function centroMapRenderize(lat, long, nome){
   	/*Funcao que mede a distancia entre 2 pontos*/
 // Objeto para calcular a distancia entre dois pontos
 // Adaptado dessa formula http://stackoverflow.com/questions/27928/how-do-i-calculate-distance-between-two-latitude-longitude-points
-function positionsreturn( pontoInicial, pontoFinal){
+function positionsreturn(pontoInicial, pontoFinal){
 	var R = 6371; // Radio da Terra
 	var dLat = this.graus2Radianos( pontoFinal.latitude - pontoInicial.latitude );
 	var dLon = this.graus2Radianos( pontoFinal.longitude - pontoInicial.longitude );
@@ -343,4 +397,21 @@ function positionsreturn( pontoInicial, pontoFinal){
 }
 function graus2Radianos( graus ){
 	return graus * ( Math.PI/180 )
+}
+
+
+
+
+/* - Função do click no botão de criar tarefa
+----------------------------------------------*/
+function click_enviar_tarefa(){
+	/* - inclui o promotor no jsontarefas*/
+	populaJsonTarefa_promotor(JsonIdPromotorSelecionadoTarefa);
+	/* - Percorre todos os mercados setados como selecionados e coloca no array*/
+	for (var i = 0; i < mercados.length; i++) {
+		if(mercados[i].selecionado){
+			populaJsonTarefa_mercados(mercados[i].id);
+		}
+	}
+	console.log(JSON.stringify(JsonTarefa));
 }

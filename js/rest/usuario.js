@@ -1,4 +1,4 @@
-var url = 'http://localhost:8080/TradeForce/administrador';
+var url = 'http://192.168.2.251:8080/TradeForce/administrador';
 var nome ;
 var login ;
 var senha ;
