@@ -1,32 +1,32 @@
 
 @font-face {
     font-family: SourceSansPro;
-    src: url('bootstrap/fonts/sans-pro/SourceSansPro-Regular.otf');
+    src: url('fonts/sans-pro/SourceSansPro-Regular.otf');
 }
 @font-face {
     font-family: SourceSansPro;
-    src: url('bootstrap/fonts/sans-pro/SourceSansPro-Bold.otf');
+    src: url('fonts/sans-pro/SourceSansPro-Bold.otf');
     font-weight: bold;
 }
 @font-face {
     font-family: SourceSansPro;
-    src: url('bootstrap/fonts/sans-pro/SourceSansPro-Italic.otf');
+    src: url('fonts/sans-pro/SourceSansPro-Italic.otf');
     font-style: italic;
 }
 @font-face {
     font-family: SourceSansPro;
-    src: url('bootstrap/fonts/sans-pro/SourceSansPro-BoldItalic.otf');
+    src: url('fonts/sans-pro/SourceSansPro-BoldItalic.otf');
     font-weight: bold;
     font-style: italic;
 }
 @font-face {
     font-family: SourceSansPro;
-    src: url('bootstrap/fonts/sans-pro/SourceSansPro-Light.otf');
+    src: url('fonts/sans-pro/SourceSansPro-Light.otf');
     font-weight: 300;
 }
 @font-face {
     font-family: SourceSansPro;
-    src: url('bootstrap/fonts/sans-pro/SourceSansPro-LightItalic.otf');
+    src: url('fonts/sans-pro/SourceSansPro-LightItalic.otf');
     font-style: italic;
     font-weight: 300;
 }

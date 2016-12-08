@@ -11,8 +11,7 @@
 	<script type="text/javascript" src="js/messagebox.min.js"></script>
 	<script type="text/javascript" src="auto/jquery-ui.custom.min.js"></script>
 	<link href="auto/estilo.css" type="text/css" rel="stylesheet" />
-
-	<script type="text/javascript" src="js/rest/empresa.js"></script>
+	<script type="text/javascript" src="js/rest/relatorio.js"></script>
 </head>
 <body>
 	<div class="loadingDiv"></div>
@@ -57,63 +56,70 @@
 	</aside>
 	<div class="title-page">
 		<div class="title">
-			<h1>Cadastros - Empresa</h1>
+			<h1>Relatorios
+			</h1>
 		</div>
 	</div>
 	<div class="conteudo">
-		<div class="container-cadastros">
-			<form method="post" class="form-cad-mercado">
-				<div class="table">
-					<div class="td space"></div>
+		<input type='hidden' id='current_page' />
+		<input type='hidden' id='show_per_page' />
+		<div class="lista-container">
+			<form action="" >
+				<div class="lista-title table">
 					<div class="td">
-						<label>Nome</label>
-						<input type="text" id="nome" name="nome" id="nome" placeholder="" />
+						<label>Promotor</label>
+						<select id="promotor" name="promotor">
+							<option value="" selected disabled>Selecione</option>
+						</select>
+						<input type="button" onclick="listar()" value="Gerar" />
 					</div>
-					<div class="td space"></div>
-
 				</div>
-				<div class="table">
-					<div class="td space"></div>
-					<div class="td">
-						<label>Razão Social</label>
-						<input type="text" id="razaoSocial" name="razaoSocial" id="razaoSocial" placeholder="" />
-					</div>
-					<div class="td">
-						<label>CNPJ:</label>
-						<input type="text" name="cnpj" id="cnpj" maxlength="14" placeholder="somente números" required/>
-					</div>
-					<div class="td space"></div>
-				</div>
-				<input type="button" onclick="inserir()" value="Enviar" name="btnEnviar" />
-
 			</form>
+			<section class="lista-dados">
+				<!-- dados vindos do relatorio.js -->
+				<div class="linha-dados table" id="listTarefa">
+					<div class="td lista-40">	Data Criação				</div>
+					<div class="td space"></div>
+					<div class="td">					Qtd. Mercados						</div>
+					<div class="td space"></div>
+					<div class="td">					Valor Total					</div>
+					<div class="td space"></div>
+					<div class="td">					Tarefa ID					</div>
+					<div class="td space"></div>
+
+				</section>
+				<div id='page_navigation'></div>
+			</div>
+
+
 		</div>
-	</div>
 
-	<footer>
-		<!-- footer -->
-	</footer>
-	<script>
-	$('#loadingDiv').hide()  // hide it initially
-	.ajaxStart(function() {
-		$(this).show();
-	})
-	.ajaxStop(function() {
-		$(this).hide();
-	});
 
-	$('.minima').click(function(event) {
-		$('aside ul li span').toggleClass('dnon');
-		$('aside').toggleClass('min-aside');
-	});
-	$('aside ul li.aside-cad').click(function(event) {
-		$('aside ul li ul.aside-cad').toggleClass('abre-aside');
-		$('aside ul li ul li').toggleClass('opac-li');
-	});
-	$('.user i').click(function(event) {
-		$('.configuracoes-user').toggleClass('configuracoes-user-show');
+
+		<footer>
+			<!-- footer -->
+		</footer>
+		<script>
+		$('#loadingDiv').hide()  // hide it initially
+		.ajaxStart(function() {
+			$(this).show();
+		})
+		.ajaxStop(function() {
+			$(this).hide();
+		});
+
+		$('.minima').click(function(event) {
+			$('aside ul li span').toggleClass('dnon');
+			$('aside').toggleClass('min-aside');
+		});
+		$('aside ul li.aside-cad').click(function(event) {
+			$('aside ul li ul.aside-cad').toggleClass('abre-aside');
+			$('aside ul li ul li').toggleClass('opac-li');
+		});
+		$('.user i').click(function(event) {
+			$('.configuracoes-user').toggleClass('configuracoes-user-show');
 			//$('.configuracoes-user ul').toggleClass('config-user-show');
 		});
-	</script>
-</body>
-</html>
+		</script>
+	</body>
+	</html>
