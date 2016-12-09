@@ -3,7 +3,7 @@ var url = 'http://192.168.2.251:8080/TradeForce/relatorio';
 var urlPromotor = 'http://192.168.2.251:8080/TradeForce/promotor';
 var idPromotor;
 var rowsPDF = [];
-
+var header ='';
 $(document).ready(function ($) {
 	loadSelectPromotor();
 });
@@ -12,8 +12,9 @@ function loadSelectPromotor(){
 	$.getJSON(urlPromotor, function (data) {
 		$.each(data, function (i, data) {
 			$('#promotor').append(
-				$('<option value=""></option>')
+				$('<option value="" data-support=""></option>')
 				.attr('value', data.id)
+				.attr('data-support', '["'+data.id+'","'+data.nome+'","'+data.login+'"]')
 				.text(data.nome +' - ID: '+ data.id +' - Login: '+ data.login)
 			);
 		});
@@ -65,8 +66,11 @@ function RESTlistar(id) {
 }
 
 function listar() {
+	header ='';
 	idPromotor = $("#promotor").val();
 	if(idPromotor >= 1){
+		promotorData = JSON.parse($('#promotor option:selected').attr('data-support'));
+		header = promotorData[1] +' - ID: '+promotorData[0];
 		RESTlistar(idPromotor);
 		zerarGrid();
 		$(".export").prop("disabled", false);
@@ -98,7 +102,7 @@ function exportPDF(){
 	doc.autoTable(columns, rowsPDF, {
 		margin: {top: 60},
 		addPageContent: function(data) {
-			doc.text("Relatório Tarefas", 40, 30);
+			doc.text("Relatório Tarefas - " + header, 40, 30);
 		}
 	});
 	doc.save('TradePlaceRelatorio.pdf');

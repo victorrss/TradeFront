@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>TradePlace - Empresas</title>
+	<title>TradePlace - Tarefas</title>
 	<meta charset="utf-8" lang="pt-BR" />
 	<script src="auto/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -11,7 +11,7 @@
 	<script type="text/javascript" src="js/paginacao.js"></script>
 	<script type="text/javascript" src="js/load.js"></script>
 	<script type="text/javascript" src="js/messagebox.min.js"></script>
-	<script type="text/javascript" src="js/rest/empresa.js"></script>
+	<script type="text/javascript" src="js/rest/tarefa.js"></script>
 
 </head>
 <body>
@@ -50,14 +50,15 @@
 			<li><a href="promotores.html"><i class="fa fa-users" aria-hidden="true"></i> <span>Promotores</span></a></li>
 			<li><a href="mercados.html"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <span>Mercados</span></a></li>
 			<!-- <li><a href="usuarios.html"><i class="fa fa-universal-access" aria-hidden="true"></i> <span>Usuarios</span></a></li> -->
-			<li class="active"><a href="empresas.html"><i class="fa fa-building-o" aria-hidden="true"></i> <span>Empresas</span></a></li>
+			<li><a href="empresas.html"><i class="fa fa-building-o" aria-hidden="true"></i> <span>Empresas</span></a></li>
+			<li class="active"><a href="tarefas.html"><i class="fa fa-tasks" aria-hidden="true"></i> <span>Tarefas</span></a></li>
 		</ul>
 		<span class="minima"><i class="fa fa-align-justify" aria-hidden="true"></i></span>
 	</aside>
 	<div class="title-page">
 		<div class="title">
-			<h1>Empresas</h1>
-			<span class="cadastrar-mais"><a href="empresa.html" alt="Cadastrar mais empresas"> + </a></span>
+			<h1>Tarefas</h1>
+			<span class="cadastrar-mais"><a href="criar-tarefa.html" alt="Cadastrar mais tarefas"> + </a></span>
 		</div>
 	</div>
 	<div class="conteudo">
@@ -67,13 +68,26 @@
 			<form action="" >
 				<div class="lista-title table">
 					<div class="td">
-						<label>Pesquisa (Nome/Endereço)</label>
+						<label>Pesquisa</label>
 						<input type="text" id="pesquisarnome"/>
 					</div>
 				</div>
 			</form>
 			<section class="lista-dados">
-				<!-- dados vindos do mercado.js -->
+				<div class="linha-dados table" id="listTarefa-1" style="display: table;">
+					<div class="td space"></div>
+					<div class="td">					Promotor					</div>
+					<div class="td space"></div>
+					<div class="td ">					Mercados						</div>
+					<div class="td space"></div>
+					<div class="td">					Data					</div>
+					<div class="td space"></div>
+					<div class="td">					Custo					</div>
+					<div class="td space"></div>
+					<div class="td">					Realizada					</div>
+					<div class="td space"></div>
+					<div class="td icons-edit"></div>
+				</div>
 			</section>
 			<div id='page_navigation'></div>
 		</div>
@@ -85,10 +99,6 @@
 		<!-- footer -->
 	</footer>
 	<script>
-
-	// CHAMADA PARA A FUNCAO DE LISTAGEM
-	RESTlistar();
-
 	// PESQUISA NO LIST
 	$('#pesquisarnome').keyup(function(event){
 		$('.linha-dados').hide();
