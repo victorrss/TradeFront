@@ -30,10 +30,10 @@ function RESTlistar() {
 
 			for (var j =0; j < data[i].mercados.length -1; j++) {
 				if (j == data[i].mercados.length -1) {
-					viagens = viagens +  data[i].mercados[j].nome+ ', <br> ';
+					viagens = viagens +  data[i].mercados[j].nome+ ' <br> ';
 				}
 				else {
-					viagens = viagens +  data[i].mercados[j].nome;
+					viagens = viagens +  data[i].mercados[j].nome + ' <br> ';
 				}
 
 			}
