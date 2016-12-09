@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TradePlace - Empresas</title>
+	<meta charset="utf-8" lang="pt-BR" />
+	<script src="auto/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link rel="stylesheet" href="fontaw/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/messagebox.css" />
+	<script type="text/javascript" src="js/paginacao.js"></script>
+	<script type="text/javascript" src="js/load.js"></script>
+	<script type="text/javascript" src="js/messagebox.min.js"></script>
+	<script type="text/javascript" src="js/rest/empresa.js"></script>
+
+</head>
+<body>
+	<header>
+		<div class="topo">
+			<div class="logo">
+				<img src="img/logo.png" alt="" />
+			</div>
+			<div class="top-direita">
+				<a href="##">Sair <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+			</div>
+		</div>
+	</header>
+	<aside>
+		<div class="user">
+			Usuario: <span>Gilberto Gomes</span>  <i class="fa fa-cog" aria-hidden="true"></i>
+			<div class="configuracoes-user">
+				<ul>
+					<li><a href="" title="">Alterar Senha</a></li>
+					<li><a href="#" title="">Alterar informações da conta</a></li>
+				</ul>
+			</div>
+		</div>
+		<ul>
+			<li><a href="index.html"><i class="fa fa-home" aria-hidden="true"></i> <span>Home</span></a></li>
+			<li><a href="criar-tarefa.html"><i class="fa fa-map" aria-hidden="true"></i> <span>Criar Tarefa</span></a></li>
+			<li><a href="relatorios.html"><i class="fa fa-bar-chart" aria-hidden="true"></i> <span>Relatórios</span></a></li>
+			<li class="aside-cad"><i class="fa fa-blind" aria-hidden="true"></i> <span>Cadastros</span>
+				<ul class="aside-cad">
+					<li><a href="promotor.html" alt="Promotor">Promotor</a></li>
+					<li><a href="mercado.html" alt="Mercado">Mercado</a></li>
+					<li><a href="usuario.html" alt="Usuário">Usuário</a></li>
+					<li><a href="empresa.html" alt="Empresa">Empresa</a></li>
+				</ul>
+			</li>
+			<li><a href="promotores.html"><i class="fa fa-users" aria-hidden="true"></i> <span>Promotores</span></a></li>
+			<li><a href="mercados.html"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <span>Mercados</span></a></li>
+			<!-- <li><a href="usuarios.html"><i class="fa fa-universal-access" aria-hidden="true"></i> <span>Usuarios</span></a></li> -->
+			<li class="active"><a href="empresas.html"><i class="fa fa-building-o" aria-hidden="true"></i> <span>Empresas</span></a></li>
+		</ul>
+		<span class="minima"><i class="fa fa-align-justify" aria-hidden="true"></i></span>
+	</aside>
+	<div class="title-page">
+		<div class="title">
+			<h1>Empresas</h1>
+			<span class="cadastrar-mais"><a href="empresa.html" alt="Cadastrar mais empresas"> + </a></span>
+		</div>
+	</div>
+	<div class="conteudo">
+		<input type='hidden' id='current_page' />
+		<input type='hidden' id='show_per_page' />
+		<div class="lista-container">
+			<form action="" >
+				<div class="lista-title table">
+					<div class="td">
+						<label>Pesquisa (Nome/Endereço)</label>
+						<input type="text" id="pesquisarnome"/>
+					</div>
+				</div>
+			</form>
+			<section class="lista-dados">
+				<!-- dados vindos do mercado.js -->
+			</section>
+			<div id='page_navigation'></div>
+		</div>
+
+
+	</div>
+
+	<footer>
+		<!-- footer -->
+	</footer>
+	<script>
+
+	// CHAMADA PARA A FUNCAO DE LISTAGEM
+	RESTlistar();
+
+	// PESQUISA NO LIST
+	$('#pesquisarnome').keyup(function(event){
+		$('.linha-dados').hide();
+		var txt = $('#pesquisarnome').val();
+		$('.linha-dados').each(function(){
+			if($(this).text().toUpperCase().indexOf(txt.toUpperCase()) != -1){
+				$(this).show();
+			}
+		});
+		if ($('#pesquisarnome').val() == '') {
+			$('#page_navigation').show();
+		} else {
+			$('#page_navigation').hide();
+		}
+
+	});
+
+
+
+	$('.minima').click(function(event) {
+		$('aside ul li span').toggleClass('dnon');
+		$('aside').toggleClass('min-aside');
+	});
+	$('aside ul li.aside-cad').click(function(event) {
+		$('aside ul li ul.aside-cad').toggleClass('abre-aside');
+		$('aside ul li ul li').toggleClass('opac-li');
+	});
+	$('.user i').click(function(event) {
+		$('.configuracoes-user').toggleClass('configuracoes-user-show');
+		//$('.configuracoes-user ul').toggleClass('config-user-show');
+	});
+	</script>
+</body>
+</html>

@@ -1,7 +1,5 @@
-// *
-// * Adicionar multiplos marcadores
-// * 2013 - www.marnoto.com
-// *
+var url_server = "http://192.168.2.251:8080/TradeForce/";
+// var url_server = "http://192.168.0.1:8080/TradeForce/mercado";
 
 // Váriáveis necessárias
 var map;
@@ -133,7 +131,8 @@ function populaJsonTarefa_promotor(JsonPromotor_id){
 	JsonPromotor= {
 		"id":JsonPromotor_id
 	}
-	JsonTarefa.promotor.push(JsonPromotor);
+	//JsonTarefa.promotor.push(JsonPromotor);
+JsonTarefa.promotor= JsonPromotor
 }
 function populaJsonTarefa_mercados(JsonMercados_id){
 	JsonMercados = {
@@ -169,8 +168,6 @@ function devolveLatLngName(id){
 
 
 
-var url_server = "http://localhost:8080/TradeForce/";
-// var url_server = "http://192.168.0.1:8080/TradeForce/mercado";
 
 
 function popoulateHandlers(){
@@ -209,9 +206,6 @@ function ListarPromotores(){
 		});
 	});
 }
-
-
-
 
 /*deixa a variavel global para ser usada na centralização do mapa*/
 var latlngTratada_promotor;
@@ -413,5 +407,59 @@ function click_enviar_tarefa(){
 			populaJsonTarefa_mercados(mercados[i].id);
 		}
 	}
-	console.log(JSON.stringify(JsonTarefa));
+	console.log();
+	RESTinserir(JSON.stringify(JsonTarefa)).done(handleData);
+}
+
+
+function handleData(data, textStatus, jqXHR,acao) {
+
+	if (jqXHR.status == 201) {
+		$.MessageBox({
+			customClass: "custom_messagebox",
+			message: "Cadastrado com sucesso!"
+		}).done(function(data, button){
+				window.location.reload(true);
+		});
+	}else if (jqXHR.status == 204) {
+		if (acao == 'editar') {
+			$.MessageBox({
+				customClass: "custom_messagebox",
+				message: "Atualizado com sucesso!"
+			}).done(function(data, button){
+				window.location="promotores.html";
+			});
+		}else	if (acao == 'excluir') {
+			$.MessageBox({
+				customClass: "custom_messagebox",
+				message: "Excluido com sucesso!"
+			}).done(function(data, button){
+				location.reload(true);
+			});
+		}
+	}else {
+		$.MessageBox({
+			message: "Ocorreu um erro, tente novamente!"
+		});
+	}
+}
+
+
+
+function RESTinserir(json) {
+	console.log(json);
+	return $.ajax({
+		//async: false,
+		global: true,
+		type: 'POST',
+		url: url_server + 'tarefa',
+		data: json,
+		contentType: "application/json; charset=UTF-8",
+		error: function (jqXHR, textStatus, errorThrown) {
+		$.MessageBox({
+			customClass: "custom_messagebox",
+			message: "Não foi possível enviar sua requisição, o servidor retornou um erro. <br> Tente novamente!"
+		});
+	}
+});
 }

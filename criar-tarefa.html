@@ -16,9 +16,8 @@
 
 
 	<script type="text/javascript" src="js/load.js"></script>
+	<link rel="stylesheet" href="css/messagebox.css" />
 	<script type="text/javascript" src="js/messagebox.min.js"></script>
-	<!-- <script type="text/javascript" src="js/rest/mercado.js"></script> -->
-	<!-- <script type="text/javascript" src="js/paginacao.js"></script> -->
 
 	<!-- <script type="text/javascript" src="js/distancia.js"></script> -->
 
@@ -47,7 +46,7 @@
 		<ul>
 			<li><a href="index.html"><i class="fa fa-home" aria-hidden="true"></i> <span>Home</span></a></li>
 			<li class="active"><a href="criar-tarefa.html"><i class="fa fa-map" aria-hidden="true"></i> <span>Criar Tarefa</span></a></li>
-						<li><a href="relatorios.html"><i class="fa fa-bar-chart" aria-hidden="true"></i> <span>Relatórios</span></a></li>
+			<li><a href="relatorios.html"><i class="fa fa-bar-chart" aria-hidden="true"></i> <span>Relatórios</span></a></li>
 			<li class="aside-cad"><i class="fa fa-blind" aria-hidden="true"></i> <span>Cadastros</span>
 				<ul class="aside-cad">
 					<li><a href="promotor.html" alt="Promotor">Promotor</a></li>
@@ -110,7 +109,7 @@
 						</div>
 					</div>
 				</div>
-			<input type="button" id="enviar-tarefa" onclick="click_enviar_tarefa();" value="Enviar" name="btnEnviar" />
+				<input type="button" id="enviar-tarefa" onclick="click_enviar_tarefa();" value="Enviar" name="btnEnviar" />
 			</form>
 			<br class="clear" />
 		</div>
@@ -121,7 +120,7 @@
 	</footer>
 	<script>
 
-/* - FAZER
+	/* - FAZER
 
 	RAIO FIXO DE +/- 40KM
 	BOTAO DE MAIS E MENOS PARA AUMENTAR E DIMINUIR O RAIO
@@ -129,77 +128,77 @@
 
 
 
-		/* - Função qe vai listar todos os promotores
-		---------------------------------------------*/
-		ListarPromotores();
-		/* - Direciona o promotor clicado para a função que vai pegar o id
-		----------------------------------------------------------------*/
-		$(".nome-promo-lista").click(pegaClickSelecao);
+	/* - Função qe vai listar todos os promotores
+	---------------------------------------------*/
+	ListarPromotores();
+	/* - Direciona o promotor clicado para a função que vai pegar o id
+	----------------------------------------------------------------*/
+	$(".nome-promo-lista").click(pegaClickSelecao);
 
-		/* - Pega o digitar no input e reorganiza as coisas
-		----------------------------------------------------*/
-		$(".nome-promotor").keyup(function(){
+	/* - Pega o digitar no input e reorganiza as coisas
+	----------------------------------------------------*/
+	$(".nome-promotor").keyup(function(){
+		var texto = $(this).val();
+		$(".nome-promo-lista").css("display", "block");
+		$(".nome-promo-lista").each(function(){
+			if($(this).text().toUpperCase().indexOf(texto.toUpperCase()) < 0)
+			$(this).css("display", "none");
+		});
+	});
+	function pesquisarMercado(){
+		$(".nome-mercado").keyup(function(){
 			var texto = $(this).val();
-			$(".nome-promo-lista").css("display", "block");
-			$(".nome-promo-lista").each(function(){
+			$(".linha-mercados").css("display", "inline-block");
+			$(".linha-mercados").each(function(){
 				if($(this).text().toUpperCase().indexOf(texto.toUpperCase()) < 0)
-					$(this).css("display", "none");
+				$(this).css("display", "none");
 			});
 		});
-		function pesquisarMercado(){
-			$(".nome-mercado").keyup(function(){
-				var texto = $(this).val();
-				$(".linha-mercados").css("display", "inline-block");
-				$(".linha-mercados").each(function(){
-					if($(this).text().toUpperCase().indexOf(texto.toUpperCase()) < 0)
-						$(this).css("display", "none");
-				});
-			});
-		}
-		pesquisarMercado();
+	}
+	pesquisarMercado();
 
-		/* - desseleciona o promotor escolhido
-		---------------------------------------------*/
-		$(".promotor-selecionado em").click(function(event) {
-			$(".promotor-selecionado .dados-promotor-selecionado").text("");
-			$(".lista-todos-promotores").slideToggle(300);
-			$(".promotor-selecionado").slideToggle(300);
+	/* - desseleciona o promotor escolhido
+	---------------------------------------------*/
+	$(".promotor-selecionado em").click(function(event) {
+		$(".promotor-selecionado .dados-promotor-selecionado").text("");
+		$(".lista-todos-promotores").slideToggle(300);
+		$(".promotor-selecionado").slideToggle(300);
 
-			$(".container-mercado").slideToggle(300);
-			$(".avisoRaio").slideToggle(300);
-		});
+		$(".container-mercado").slideToggle(300);
+		$(".avisoRaio").slideToggle(300);
+	});
 
 
-		/* - pega o raio do input e joga para a lista
-		---------------------------------------------*/
-		$('#listarmercadosnoraio').click(function(event) {
-			$('.lista-dados').text('');
-			var raioParaMercado = $('#raioParaMercado').val();
-			/* Act on the event */
-			ListarMercados(raioParaMercado);
-			$('.nome-mercado').slideDown(300);
+	/* - pega o raio do input e joga para a lista
+	---------------------------------------------*/
+	$('#listarmercadosnoraio').click(function(event) {
+		$('.lista-dados').text('');
+		var raioParaMercado = $('#raioParaMercado').val();
+		/* Act on the event */
+		ListarMercados(raioParaMercado);
+		$('.nome-mercado').slideDown(300);
 
-			/* - Abre o campo de seleção do mercado
-			----------*/
-			$('.mercados-selecionados').slideDown(300);
-			$('.container-todos-mercados').slideDown(300);
-		});
+		/* - Abre o campo de seleção do mercado
+		----------*/
+		$('.mercados-selecionados').slideDown(300);
+		$('.container-todos-mercados').slideDown(300);
+	});
 
 
 
 
-		$('.minima').click(function(event) {
-			$('aside ul li span').toggleClass('dnon');
-			$('aside').toggleClass('min-aside');
-		});
-		$('aside ul li.aside-cad').click(function(event) {
-			$('aside ul li ul.aside-cad').toggleClass('abre-aside');
-			$('aside ul li ul li').toggleClass('opac-li');
-		});
-		$('.user i').click(function(event) {
-			$('.configuracoes-user').toggleClass('configuracoes-user-show');
-			//$('.configuracoes-user ul').toggleClass('config-user-show');
-		});
+	$('.minima').click(function(event) {
+		$('aside ul li span').toggleClass('dnon');
+		$('aside').toggleClass('min-aside');
+	});
+	$('aside ul li.aside-cad').click(function(event) {
+		$('aside ul li ul.aside-cad').toggleClass('abre-aside');
+		$('aside ul li ul li').toggleClass('opac-li');
+	});
+	$('.user i').click(function(event) {
+		$('.configuracoes-user').toggleClass('configuracoes-user-show');
+		//$('.configuracoes-user ul').toggleClass('config-user-show');
+	});
 	</script>
 </body>
 </html>
